@@ -1,4 +1,4 @@
-package com.will.core.network.implementation.rest
+package com.will.core.network.implementation.adapter
 
 import retrofit2.Call
 import retrofit2.CallAdapter

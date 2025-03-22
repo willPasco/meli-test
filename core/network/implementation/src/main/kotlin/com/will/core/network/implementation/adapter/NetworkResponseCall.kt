@@ -1,4 +1,4 @@
-package com.will.core.network.implementation.rest
+package com.will.core.network.implementation.adapter
 
 import com.will.core.network.api.model.NetworkResponse
 import okhttp3.Request
