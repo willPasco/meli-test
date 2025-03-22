@@ -18,6 +18,24 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Create NetworkSecurity.cpp
+        run: |
+          cat <<EOF > ${{ github.workspace }}/core/network/implementation/src/main/cpp/com/will/core/network/security/NetworkSecurity.cpp
+          #include "NetworkSecurity.h"
+          
+          #include <jni.h>
+          #include <string>
+          
+          extern "C"
+          jstring Java_com_will_core_network_implementation_security_NetworkSecurityImpl_getAccessToken(
+                  JNIEnv *env,
+                  __attribute__((unused)) jobject object
+          ) {
+              std::string access_token = "DUMMY_TOKEN";
+              return env->NewStringUTF(access_token.c_str());
+          }
+          EOF
+
       - name: Android Build
         run: ./gradlew assembleDebug
 
