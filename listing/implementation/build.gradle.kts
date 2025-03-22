@@ -16,4 +16,6 @@ dependencies {
     implementation(libs.koin.androidx.compose)
     implementation(libs.androidx.material3)
     implementation(libs.kotlinx.serialization.json)
+
+    testImplementation(libs.bundles.unit.test)
 }
