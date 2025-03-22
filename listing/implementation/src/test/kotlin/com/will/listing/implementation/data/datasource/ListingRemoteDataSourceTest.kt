@@ -23,8 +23,13 @@ internal class ListingRemoteDataSourceTest {
         listingService = mockedService,
     )
 
+    /***
+        WHEN call mockedService.searchTerm
+        THEN should call mockedService.searchTerm one time
+            AND the result should be the return of mockedService.searchTerm
+     */
     @Test
-    fun `when call searchTerm then should return then service result`() = testScope.runTest {
+    fun validateSearchTerm() = testScope.runTest {
         val response = NetworkResponse.Success(SearchResponse(null))
 
         coEvery { mockedService.searchTerm(any()) } returns response

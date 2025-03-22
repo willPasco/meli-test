@@ -16,8 +16,13 @@ internal class ListingRepositoryTest {
     private val mockedDataSource = mockk<ListingRemoteDataSource>()
     private val repository = ListingRepositoryImpl(mockedDataSource)
 
+    /***
+        WHEN call mockedDataSource.searchTerm
+        THEN should call repository.searchTerm one time
+            AND the result should be the return of mockedDataSource.searchTerm
+     */
     @Test
-    fun `when call searchTerm then should return then service result`() = runTest {
+    fun validateSearchTerm() = runTest {
         val response = NetworkResponse.Success(SearchResponse(null))
 
         coEvery { mockedDataSource.searchTerm() } returns response
