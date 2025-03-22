@@ -7,8 +7,8 @@ android {
 }
 
 dependencies {
-    implementation(libs.retrofit)
     implementation(libs.koin.android)
 
+    api(libs.retrofit)
     api(libs.kotlinx.serialization.json)
 }
