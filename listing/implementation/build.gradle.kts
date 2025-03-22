@@ -16,6 +16,8 @@ dependencies {
     implementation(libs.koin.androidx.compose)
     implementation(libs.androidx.material3)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
     testImplementation(libs.bundles.unit.test)
 }
