@@ -10,8 +10,12 @@ android {
 
 dependencies {
     implementation(project(":core:navigation:api"))
+    implementation(project(":core:network:api"))
 
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
     implementation(libs.androidx.material3)
-
     implementation(libs.kotlinx.serialization.json)
+
+    testImplementation(libs.bundles.unit.test)
 }
