@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.will.listing.api"
+    namespace = "com.will.listing.implementation"
 }
 
 dependencies {}
