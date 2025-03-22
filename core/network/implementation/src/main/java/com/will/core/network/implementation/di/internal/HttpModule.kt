@@ -1,4 +1,4 @@
-package com.will.core.network.api.di.internal
+package com.will.core.network.implementation.di.internal
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
