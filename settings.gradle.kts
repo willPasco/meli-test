@@ -22,4 +22,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Meli Test"
 include(":app")
- 
+include(":listing:api")
