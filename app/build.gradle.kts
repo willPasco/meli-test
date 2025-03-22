@@ -40,6 +40,7 @@ dependencies {
     implementation(project(":core:navigation:implementation"))
     implementation(project(":core:style"))
     implementation(project(":listing:implementation"))
+    implementation(project(":details:implementation"))
 
     testImplementation(libs.junit)
 

@@ -19,8 +19,15 @@ import com.will.core.style.theme.MeliTestTheme
 import com.will.listing.implementation.domain.model.ProductCard
 
 @Composable
-internal fun ProductCardComponent(modifier: Modifier = Modifier, productCard: ProductCard) {
-    Card(modifier = modifier) {
+internal fun ProductCardComponent(
+    modifier: Modifier = Modifier,
+    productCard: ProductCard,
+    onCardClick: () -> Unit,
+) {
+    Card(
+        modifier = modifier,
+        onClick = onCardClick
+    ) {
         Column {
             AsyncImage(
                 modifier = Modifier
@@ -78,6 +85,6 @@ private fun ProductCardPreview() {
                 discount = 20.0,
                 image = ""
             ))
-        )
+        ){}
     }
 }
