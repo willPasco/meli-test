@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.will.core.style.theme.MeliTestTheme
 import com.will.listing.implementation.domain.model.ProductCard
 import com.will.listing.implementation.presentation.viewmodel.ListingUiAction
+import com.will.listing.implementation.presentation.viewmodel.ListingUiActionInvoke
 import com.will.listing.implementation.presentation.viewmodel.ListingUiState
 import com.will.listing.implementation.presentation.viewmodel.ListingViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -23,12 +24,15 @@ import org.koin.androidx.compose.koinViewModel
 internal fun ListingScreenWrapper(viewModel: ListingViewModel = koinViewModel()) {
     when (val currentState = viewModel.uiState.collectAsState().value) {
         is ListingUiState.Uninitialized -> viewModel.onUiAction(ListingUiAction.SearchTerm)
-        is ListingUiState.ShowProductList -> ListingScreen(currentState.productList)
+        is ListingUiState.ShowProductList -> ListingScreen(
+            productList = currentState.productList,
+            onUiAction = viewModel.onUiAction,
+        )
     }
 }
 
 @Composable
-internal fun ListingScreen(productList: List<ProductCard>) {
+internal fun ListingScreen(productList: List<ProductCard>, onUiAction: ListingUiActionInvoke) {
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
             LazyColumn(
@@ -36,7 +40,9 @@ internal fun ListingScreen(productList: List<ProductCard>) {
                 verticalArrangement = Arrangement.spacedBy(20.dp),
             ) {
                 items(productList) { product ->
-                    ProductCardComponent(productCard = product)
+                    ProductCardComponent(productCard = product) {
+                        onUiAction(ListingUiAction.OnItemClicked)
+                    }
                 }
             }
         }
@@ -63,7 +69,7 @@ private fun ListingScreenPreview() {
                     discount = null,
                     image = ""
                 )
-            )
-        )
+            ),
+        ) {}
     }
 }

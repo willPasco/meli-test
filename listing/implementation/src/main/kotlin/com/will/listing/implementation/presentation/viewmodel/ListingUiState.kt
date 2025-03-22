@@ -5,5 +5,5 @@ import com.will.listing.implementation.domain.model.ProductCard
 internal sealed interface ListingUiState {
 
     data object Uninitialized : ListingUiState
-    class ShowProductList(val productList: List<ProductCard>) : ListingUiState
+    data class ShowProductList(val productList: List<ProductCard>) : ListingUiState
 }

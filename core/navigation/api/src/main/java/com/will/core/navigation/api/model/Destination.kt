@@ -1,6 +1,6 @@
 package com.will.core.navigation.api.model
 
-public class Destination(
+public open class Destination(
     public val route: Any,
     public val destinationConfigs: DestinationConfigs = DestinationConfigs()
 ) : NavigationIntent
