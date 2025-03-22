@@ -10,12 +10,5 @@ add_library(
 
 include_directories(com/will/core/network/security)
 
-find_library(
-        log-lib
-        log
-)
 
-target_link_libraries(
-        network-security
-        $(log-lib)
-)
+target_link_libraries(network-security)
