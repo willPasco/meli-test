@@ -1,6 +1,7 @@
 [versions]
 agp = "8.9.0"
-hamcrestLibrary = "1.3"
+coilCompose = "3.1.0"
+hamcrest = "3.0"
 junitJupiter = "5.8.2"
 koinAndroid = "4.0.0"
 kotlin = "2.0.21"
@@ -30,7 +31,9 @@ ndk = "25.2.9519653"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
-hamcrest-library = { module = "org.hamcrest:hamcrest-library", version.ref = "hamcrestLibrary" }
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+hamcrest-library = { module = "org.hamcrest:hamcrest-library", version.ref = "hamcrest" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
@@ -77,4 +80,4 @@ convention-compose = { id = "meli.compose", version = "unspecified" }
 convention-android-library = { id = "meli.android.library", version.ref = "agp" }
 
 [bundles]
-unit-test = ["junit", "androidx-junit", "turbine", "mockk", "kotlinx-coroutines-test"]
+unit-test = ["junit", "androidx-junit", "turbine", "mockk", "kotlinx-coroutines-test", "hamcrest-library"]

@@ -1,9 +1,14 @@
 package com.will.listing.implementation.data.model
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import java.io.Serial
 
 @Serializable
 internal class ProductResponse(
-    val title: String?
+    val title: String?,
+    val price: Double?,
+    @SerialName("original_price")
+    val originalPrice: Double?,
+    val thumbnail: String?,
+    val seller: SellerResponse?,
 )
