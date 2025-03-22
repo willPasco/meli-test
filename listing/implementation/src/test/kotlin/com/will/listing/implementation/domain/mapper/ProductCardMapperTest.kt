@@ -27,7 +27,8 @@ internal class ProductCardMapperTest {
                     price = null,
                     originalPrice = null,
                     thumbnail = null,
-                    seller = null
+                    seller = null,
+                    id = null
                 )
             )
         )
@@ -38,7 +39,8 @@ internal class ProductCardMapperTest {
                 sellerName = "",
                 price = null,
                 discount = null,
-                image = ""
+                image = "",
+                id = ""
             )
         )
 
@@ -61,7 +63,8 @@ internal class ProductCardMapperTest {
                     price = 10.0,
                     originalPrice = 11.0,
                     thumbnail = "thumb",
-                    seller = SellerResponse(nickname = "nick")
+                    seller = SellerResponse(nickname = "nick"),
+                    id = "1"
                 )
             )
         )
@@ -72,7 +75,8 @@ internal class ProductCardMapperTest {
                 sellerName = "nick",
                 price = 10.0,
                 discount = 11.0,
-                image = "thumb"
+                image = "thumb",
+                id = "1"
             )
         )
 

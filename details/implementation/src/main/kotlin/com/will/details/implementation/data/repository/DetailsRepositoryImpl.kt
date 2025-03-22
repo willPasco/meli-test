@@ -8,5 +8,5 @@ internal class DetailsRepositoryImpl(
     private val dataSource: DetailsRemoteDataSource,
 ) : DetailsRepository {
 
-    override suspend fun getItem(): NetworkResponse<DetailsResponse> = dataSource.getItem()
+    override suspend fun getItem(itemId: String): NetworkResponse<DetailsResponse> = dataSource.getItem(itemId)
 }

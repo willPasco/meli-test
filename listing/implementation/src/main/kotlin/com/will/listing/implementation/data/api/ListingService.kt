@@ -7,6 +7,6 @@ import retrofit2.http.Query
 
 internal interface ListingService {
 
-    @GET("search")
+    @GET("sites/MLB/search")
     suspend fun searchTerm(@Query("q") term: String): NetworkResponse<SearchResponse>
 }
