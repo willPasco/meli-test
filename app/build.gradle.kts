@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.convention.android.application)
     alias(libs.plugins.convention.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -30,8 +31,12 @@ dependencies {
     implementation(libs.androidx.material3)
 
     implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+
+    implementation(libs.kotlinx.serialization.json)
 
     implementation(project(":core:network:implementation"))
+    implementation(project(":core:navigation:api"))
     implementation(project(":core:navigation:implementation"))
     implementation(project(":listing:implementation"))
 
