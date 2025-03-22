@@ -38,6 +38,7 @@ dependencies {
     implementation(project(":core:network:implementation"))
     implementation(project(":core:navigation:api"))
     implementation(project(":core:navigation:implementation"))
+    implementation(project(":core:style"))
     implementation(project(":listing:implementation"))
 
     testImplementation(libs.junit)

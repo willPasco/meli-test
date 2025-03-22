@@ -1,7 +1,5 @@
 package com.will.listing.implementation.presentation.composable
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.will.core.style.theme.MeliTestTheme
 import com.will.listing.implementation.domain.model.ProductCard
 
 @Composable
@@ -49,7 +48,7 @@ internal fun ProductCardComponent(modifier: Modifier = Modifier, productCard: Pr
                 overflow = TextOverflow.Ellipsis
             )
 
-            Row(modifier = Modifier.padding(top = 8.dp,start = 12.dp, end = 12.dp)) {
+            Row(modifier = Modifier.padding(top = 8.dp, start = 12.dp, end = 12.dp)) {
                 productCard.discount?.let { discount ->
                     Text(
                         modifier = Modifier.padding(end = 8.dp),
@@ -67,7 +66,6 @@ internal fun ProductCardComponent(modifier: Modifier = Modifier, productCard: Pr
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.S)
 @Composable
 @Preview(device = Devices.PIXEL_7)
 private fun ProductCardPreview() {
