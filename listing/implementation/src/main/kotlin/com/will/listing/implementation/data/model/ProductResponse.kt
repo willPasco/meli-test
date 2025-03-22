@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 internal class ProductResponse(
+    val id: String?,
     val title: String?,
     val price: Double?,
     @SerialName("original_price")

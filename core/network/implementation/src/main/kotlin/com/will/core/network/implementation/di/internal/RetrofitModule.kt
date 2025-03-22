@@ -8,7 +8,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
-private const val BASE_URL = "https://api.mercadolibre.com/sites/MLB/"
+private const val BASE_URL = "https://api.mercadolibre.com/"
 private const val CONTENT_TYPE = "application/json"
 
 @OptIn(ExperimentalSerializationApi::class)

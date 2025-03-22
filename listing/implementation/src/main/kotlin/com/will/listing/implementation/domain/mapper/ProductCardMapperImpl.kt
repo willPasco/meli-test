@@ -8,6 +8,7 @@ internal class ProductCardMapperImpl : ProductCardMapper {
     override fun map(searchResponse: SearchResponse): List<ProductCard> =
         searchResponse.results?.map { result ->
             ProductCard(
+                id = result.id.orEmpty(),
                 title = result.title.orEmpty(),
                 sellerName = result.seller?.nickname.orEmpty(),
                 price = result.price,

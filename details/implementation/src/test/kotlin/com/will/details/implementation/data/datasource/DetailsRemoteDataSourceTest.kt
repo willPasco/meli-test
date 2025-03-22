@@ -34,7 +34,7 @@ internal class DetailsRemoteDataSourceTest {
 
         coEvery { mockedService.getItem(any()) } returns response
 
-        val result = dataSource.getItem()
+        val result = dataSource.getItem(itemId)
 
         coVerify(exactly = 1) { mockedService.getItem(any()) }
 

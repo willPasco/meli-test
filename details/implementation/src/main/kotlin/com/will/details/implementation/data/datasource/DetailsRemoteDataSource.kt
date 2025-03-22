@@ -5,5 +5,5 @@ import com.will.details.implementation.data.model.DetailsResponse
 
 internal interface DetailsRemoteDataSource {
 
-    suspend fun getItem(): NetworkResponse<DetailsResponse>
+    suspend fun getItem(itemId: String): NetworkResponse<DetailsResponse>
 }

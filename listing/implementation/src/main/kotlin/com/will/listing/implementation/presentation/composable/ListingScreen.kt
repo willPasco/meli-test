@@ -32,7 +32,7 @@ internal fun ListingScreenWrapper(viewModel: ListingViewModel = koinViewModel())
 }
 
 @Composable
-internal fun ListingScreen(productList: List<ProductCard>, onUiAction: ListingUiActionInvoke) {
+private fun ListingScreen(productList: List<ProductCard>, onUiAction: ListingUiActionInvoke) {
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
             LazyColumn(
@@ -41,7 +41,7 @@ internal fun ListingScreen(productList: List<ProductCard>, onUiAction: ListingUi
             ) {
                 items(productList) { product ->
                     ProductCardComponent(productCard = product) {
-                        onUiAction(ListingUiAction.OnItemClicked)
+                        onUiAction(ListingUiAction.OnItemClicked(product.id))
                     }
                 }
             }
@@ -60,14 +60,16 @@ private fun ListingScreenPreview() {
                     sellerName = " Seller",
                     price = null,
                     discount = null,
-                    image = ""
+                    image = "",
+                    id = ""
                 ),
                 ProductCard(
                     title = "Title2",
                     sellerName = " Seller2",
                     price = null,
                     discount = null,
-                    image = ""
+                    image = "",
+                    id = ""
                 )
             ),
         ) {}

@@ -23,12 +23,12 @@ internal class ListingViewModel(
     val onUiAction: (ListingUiAction) -> Unit = { action ->
         when (action) {
             is ListingUiAction.SearchTerm -> searchTerm()
-            is ListingUiAction.OnItemClicked -> navigateToProductDetails()
+            is ListingUiAction.OnItemClicked -> navigateToProductDetails(action.itemId)
         }
     }
 
-    private fun navigateToProductDetails() {
-        navigator.navigate(DetailsDestination("LA VAI"))
+    private fun navigateToProductDetails(itemId: String) {
+        navigator.navigate(DetailsDestination(itemId))
     }
 
     private fun searchTerm() {

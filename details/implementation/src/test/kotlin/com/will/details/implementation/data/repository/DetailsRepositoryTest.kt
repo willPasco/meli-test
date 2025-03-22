@@ -25,11 +25,11 @@ internal class DetailsRepositoryTest {
     fun validateGetItem() = runTest {
         val response = NetworkResponse.Success(DetailsResponse())
 
-        coEvery { mockedDataSource.getItem() } returns response
+        coEvery { mockedDataSource.getItem(itemId) } returns response
 
-        val result = repository.getItem()
+        val result = repository.getItem(itemId)
 
-        coVerify(exactly = 1) { mockedDataSource.getItem() }
+        coVerify(exactly = 1) { mockedDataSource.getItem(itemId) }
 
         assertThat(response, equalTo(result))
     }

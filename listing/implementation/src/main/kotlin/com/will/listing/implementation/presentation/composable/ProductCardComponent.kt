@@ -83,7 +83,8 @@ private fun ProductCardPreview() {
                 sellerName = "Seller",
                 price = 10.0,
                 discount = 20.0,
-                image = ""
+                image = "",
+                id = ""
             ))
         ){}
     }
