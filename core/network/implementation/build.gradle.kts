@@ -12,7 +12,5 @@ dependencies {
     implementation(project(":core:network:api"))
 
     implementation(libs.retrofit)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.okhttp)
 }
