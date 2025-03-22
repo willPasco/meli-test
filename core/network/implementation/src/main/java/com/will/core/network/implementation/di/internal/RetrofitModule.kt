@@ -1,6 +1,7 @@
-package com.will.core.network.api.di.internal
+package com.will.core.network.implementation.di.internal
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.will.core.network.implementation.rest.NetworkResultAdapterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -22,6 +23,7 @@ internal val retrofitModule = module {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(json.asConverterFactory(contentType = CONTENT_TYPE.toMediaType()))
+            .addCallAdapterFactory(NetworkResultAdapterFactory())
             .client(get())
             .build()
     }
