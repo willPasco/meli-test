@@ -8,5 +8,5 @@ public interface Navigator {
     public val navigationChannel: Flow<NavigationIntent>
     public fun navigate(navigationIntent: NavigationIntent)
     public fun popBack(route: Any? = null, inclusive: Boolean = false, saveState: Boolean = false)
-    fun finish()
+    public fun finish()
 }

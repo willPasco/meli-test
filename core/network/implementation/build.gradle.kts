@@ -10,6 +10,9 @@ android {
 dependencies {
     implementation(project(":core:network:api"))
 
-    implementation(libs.retrofit)
+    implementation(libs.koin.android)
     implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
 }
