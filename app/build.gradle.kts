@@ -28,7 +28,15 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.material3)
+
+    implementation(libs.koin.android)
+
+    implementation(project(":core:network:implementation"))
+    implementation(project(":core:navigation:implementation"))
+    implementation(project(":listing:implementation"))
+
     testImplementation(libs.junit)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
