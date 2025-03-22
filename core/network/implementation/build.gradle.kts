@@ -8,7 +8,6 @@ android {
 }
 
 dependencies {
-
     implementation(project(":core:network:api"))
 
     implementation(libs.retrofit)

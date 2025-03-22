@@ -24,3 +24,5 @@ rootProject.name = "Meli Test"
 include(":app")
 include(":core:network:api")
 include(":core:network:implementation")
+include(":core:navigation:api")
+include(":core:navigation:implementation")
