@@ -24,5 +24,9 @@ gradlePlugin {
             id = "meli.compose"
             implementationClass = "com.will.meli.plugin.ComposeConventionPlugin"
         }
+        register("conventionPluginAndroidLibrary"){
+            id = "meli.android.library"
+            implementationClass = "com.will.meli.plugin.AndroidLibraryConventionPlugin"
+        }
     }
 }

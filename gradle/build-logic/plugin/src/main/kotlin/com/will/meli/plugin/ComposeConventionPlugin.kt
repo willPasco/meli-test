@@ -33,7 +33,6 @@ class ComposeConventionPlugin : Plugin<Project> {
         commonExtensions: CommonExtension<*, *, *, *, *, *>,
         libs: VersionCatalog
     ) {
-
         commonExtensions.apply {
             buildFeatures {
                 compose = true
