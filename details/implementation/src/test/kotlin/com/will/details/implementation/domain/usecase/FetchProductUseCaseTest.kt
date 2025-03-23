@@ -4,6 +4,9 @@ import com.will.core.network.api.model.NetworkResponse
 import com.will.details.implementation.data.model.DetailsBodyResponse
 import com.will.details.implementation.data.model.DetailsResponse
 import com.will.details.implementation.data.repository.DetailsRepository
+import com.will.details.implementation.domain.exception.ProductDetailsErrorThrowable
+import com.will.details.implementation.domain.exception.ProductNetworkErrorThrowable
+import com.will.details.implementation.domain.exception.ProductNotFoundErrorThrowable
 import com.will.details.implementation.domain.model.ProductDetails
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -48,23 +51,21 @@ internal class FetchProductUseCaseTest {
      */
     @Test
     fun validateSuccessResponse() = runTest {
-            coEvery {
-                mockedRepository.getItem(any())
-            } returns NetworkResponse.Success(
-                listOf(
-                    DetailsResponse(
-                        code = null, body = DetailsBodyResponse(
-                            title = null,
-                            price = null,
-                            originalPrice = null,
-                            warranty = null,
-                            description = null,
-                            pictures = listOf(),
-                            attributes = listOf()
-                        )
-                    )
+        coEvery {
+            mockedRepository.getItem(any())
+        } returns NetworkResponse.Success(
+            DetailsResponse(
+                code = null, body = DetailsBodyResponse(
+                    title = null,
+                    price = null,
+                    originalPrice = null,
+                    warranty = null,
+                    description = null,
+                    pictures = listOf(),
+                    attributes = listOf()
                 )
             )
+        )
 
         val result = useCase.execute("1")
 
@@ -77,15 +78,42 @@ internal class FetchProductUseCaseTest {
     }
 
     /*
-    GIVEN the mockedRepository.getItem returns NetworkResponse.Error
+    GIVEN the mockedRepository.getItem returns NetworkResponse.Error with code 404
     WHEN call useCase.execute
     THEN should call mockedRepository.getItem
         AND not call mockedMapper.map
-        AND return a Result.Failure with the Exception
+        AND return a Result.Failure with the ProductNotFoundErrorThrowable
  */
     @Test
-    fun validateErrorResponse() = runTest {
+    fun validateNotFoundErrorResponse() = runTest {
         coEvery { mockedRepository.getItem(any()) } returns NetworkResponse.Error.ClientError(
+            code = 404,
+            message = "message"
+        )
+
+        val result = useCase.execute("1")
+
+        coVerify(exactly = 1) {
+            mockedRepository.getItem("1")
+        }
+
+        coVerify(exactly = 0) {
+            mockedMapper.map(any())
+        }
+
+        assertTrue(result.exceptionOrNull() is ProductNotFoundErrorThrowable)
+    }
+
+    /*
+        GIVEN the mockedRepository.getItem returns NetworkResponse.Error.NetworkError
+        WHEN call useCase.execute
+        THEN should call mockedRepository.getItem
+            AND not call mockedMapper.map
+            AND return a Result.Failure with the ProductNetworkErrorThrowable
+    */
+    @Test
+    fun validateNetworkErrorResponse() = runTest {
+        coEvery { mockedRepository.getItem(any()) } returns NetworkResponse.Error.NetworkError(
             code = null,
             message = "message"
         )
@@ -100,7 +128,33 @@ internal class FetchProductUseCaseTest {
             mockedMapper.map(any())
         }
 
-        assertTrue(result.exceptionOrNull() is Exception)
+        assertTrue(result.exceptionOrNull() is ProductNetworkErrorThrowable)
     }
 
+    /*
+        GIVEN the mockedRepository.getItem returns NetworkResponse.Error.UnknownError
+        WHEN call useCase.execute
+        THEN should call mockedRepository.getItem
+            AND not call mockedMapper.map
+            AND return a Result.Failure with the ProductNetworkErrorThrowable
+    */
+    @Test
+    fun validateUnknownErrorResponse() = runTest {
+        coEvery { mockedRepository.getItem(any()) } returns NetworkResponse.Error.UnknownError(
+            code = null,
+            message = "message"
+        )
+
+        val result = useCase.execute("1")
+
+        coVerify(exactly = 1) {
+            mockedRepository.getItem("1")
+        }
+
+        coVerify(exactly = 0) {
+            mockedMapper.map(any())
+        }
+
+        assertTrue(result.exceptionOrNull() is ProductDetailsErrorThrowable)
+    }
 }

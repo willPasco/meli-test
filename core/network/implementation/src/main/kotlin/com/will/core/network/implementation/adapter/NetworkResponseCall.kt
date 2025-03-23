@@ -1,12 +1,15 @@
 package com.will.core.network.implementation.adapter
 
 import com.will.core.network.api.model.NetworkResponse
+import com.will.core.network.api.model.getErrorByCode
 import okhttp3.Request
+import okio.IOException
 import okio.Timeout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.reflect.Type
+import java.net.UnknownHostException
 
 internal class NetworkResponseCall<R>(
     private val call: Call<R>,
@@ -28,32 +31,19 @@ internal class NetworkResponseCall<R>(
             }
 
             override fun onFailure(call: Call<R>, t: Throwable) {
-                callback.onResponse(
-                    this@NetworkResponseCall,
-                    Response.success(NetworkResponse.Error.UnknownError(message = t.message ?: ""))
-                )
+                val error = if (t is IOException) {
+                    NetworkResponse.Error.NetworkError(message = t.message.orEmpty())
+                } else {
+                    NetworkResponse.Error.UnknownError(message = t.message.orEmpty())
+                }
+                callback.onResponse(this@NetworkResponseCall, Response.success(error))
             }
         }
     )
 
     private fun <R> Response<R>.toNetworkResponse(): NetworkResponse<R> {
         if (!isSuccessful) {
-            return when (val code = code()) {
-                in 400..499 -> NetworkResponse.Error.ClientError(
-                    code = code,
-                    message = errorBody().toString()
-                )
-
-                in 500..599 -> NetworkResponse.Error.ServerError(
-                    code = code,
-                    message = errorBody().toString()
-                )
-
-                else -> NetworkResponse.Error.UnknownError(
-                    code = code,
-                    message = errorBody().toString()
-                )
-            }
+            return getErrorByCode(code = code(), body = errorBody().toString())
         }
 
         return body().let { body ->

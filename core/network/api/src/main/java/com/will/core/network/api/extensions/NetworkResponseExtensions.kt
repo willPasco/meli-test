@@ -11,6 +11,15 @@ public inline fun <O> NetworkResponse<O>.onClientError(
     return this
 }
 
+public inline fun <O> NetworkResponse<O>.onNetworkError(
+    action: (NetworkResponse.Error.NetworkError) -> Unit
+): NetworkResponse<O> {
+    if (this is NetworkResponse.Error.NetworkError) {
+        action(this)
+    }
+    return this
+}
+
 public inline fun <O> NetworkResponse<O>.onServerError(
     action: (NetworkResponse.Error.ServerError) -> Unit
 ): NetworkResponse<O> {
@@ -37,3 +46,9 @@ public inline fun <O> NetworkResponse<O>.onError(
     }
     return this
 }
+
+public inline fun <O, N> NetworkResponse<O>.map(mapper: (O) -> N): NetworkResponse<N> =
+    when (this) {
+        is NetworkResponse.Success -> NetworkResponse.Success(mapper(value))
+        else -> this as NetworkResponse.Error
+    }

@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,11 +19,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.will.core.style.components.Header
-import com.will.core.style.theme.MeliTestDesignSystem
+import com.will.core.style.components.PrimaryButton
 import com.will.core.style.theme.MeliTestTheme
 import com.will.details.implementation.R
 import com.will.details.implementation.domain.model.ProductDetails
 import com.will.details.implementation.presentation.composable.components.BadgesComponent
+import com.will.details.implementation.presentation.composable.components.DetailsScreenError
+import com.will.details.implementation.presentation.composable.components.DetailsScreenLoading
 import com.will.details.implementation.presentation.composable.components.ImageGalleryComponent
 import com.will.details.implementation.presentation.composable.components.InfoSectionComponent
 import com.will.details.implementation.presentation.composable.components.PriceSectionComponent
@@ -38,10 +38,22 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 internal fun DetailsScreenWrapper(itemId: String, viewModel: DetailsViewModel = koinViewModel()) {
     when (val currentState = viewModel.uiState.collectAsStateWithLifecycle().value) {
-        is DetailsUiState.Uninitialized -> viewModel.onUiAction(DetailsUiAction.FetchProduct(itemId))
+        is DetailsUiState.Uninitialized -> {
+            viewModel.onUiAction(DetailsUiAction.FetchProduct(itemId))
+        }
+
+        is DetailsUiState.Loading -> {
+            DetailsScreenLoading(onUiAction = viewModel.onUiAction)
+        }
+
         is DetailsUiState.ShowProduct -> DetailsScreen(
-            currentState.productDetails,
-            viewModel.onUiAction
+            productDetails = currentState.productDetails,
+            onUiAction = viewModel.onUiAction
+        )
+
+        is DetailsUiState.ShowError -> DetailsScreenError(
+            error = currentState.error,
+            onUiAction = viewModel.onUiAction
         )
     }
 }
@@ -75,22 +87,13 @@ private fun DetailsScreen(productDetails: ProductDetails, onUiAction: DetailsUiA
                 )
             }
 
-            Button(
+            PrimaryButton(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 20.dp, start = 16.dp, end = 16.dp),
-                colors = ButtonColors(
-                    containerColor = MeliTestDesignSystem.Colors.mainColor,
-                    contentColor = MeliTestDesignSystem.Colors.black,
-                    disabledContainerColor = MeliTestDesignSystem.Colors.gray,
-                    disabledContentColor = MeliTestDesignSystem.Colors.white,
-                ),
-                onClick = {}
+                label = stringResource(R.string.product_details_buy_button_label)
             ) {
-                Text(
-                    text = stringResource(R.string.product_details_buy_button_label),
-                    fontSize = 20.sp,
-                )
+                // do nothing
             }
         }
     }

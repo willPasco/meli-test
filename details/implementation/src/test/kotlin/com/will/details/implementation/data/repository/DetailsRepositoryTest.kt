@@ -8,7 +8,8 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.core.IsEqual.equalTo
+import org.hamcrest.Matchers.samePropertyValuesAs
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 internal class DetailsRepositoryTest {
@@ -17,13 +18,56 @@ internal class DetailsRepositoryTest {
     private val repository = DetailsRepositoryImpl(mockedDataSource)
 
     /*
+        GIVEN the mockedDataSource.getItem return success with code 200 in body
         WHEN call repository.getItem
         THEN should call mockedDataSource.getItem one time
             AND the result should be the return of mockedDataSource.getItem
      */
     @Test
-    fun validateGetItem() = runTest {
-        val response = NetworkResponse.Success(listOf(DetailsResponse(code = null, body = null)))
+    fun validateSuccessGetItem() = runTest {
+        val response = listOf(DetailsResponse(code = 200, body = null))
+
+        coEvery { mockedDataSource.getItem(any()) } returns NetworkResponse.Success(response)
+
+        val result = repository.getItem("1")
+
+        coVerify(exactly = 1) { mockedDataSource.getItem("1") }
+
+        assertThat(result.getValueOrNull(), samePropertyValuesAs(response.first()))
+        assertTrue(result.isSuccess())
+    }
+
+    /*
+        GIVEN the mockedDataSource.getItem return success different from 200 in body
+        WHEN call repository.getItem
+        THEN should call mockedDataSource.getItem one time
+            AND the result should be the return of mockedDataSource.getItem
+     */
+    @Test
+    fun validateSuccessWithErrorCodeGetItem() = runTest {
+        val response = listOf(DetailsResponse(code = 999, body = null))
+
+        coEvery { mockedDataSource.getItem(any()) } returns NetworkResponse.Success(response)
+
+        val result = repository.getItem("1")
+
+        coVerify(exactly = 1) { mockedDataSource.getItem("1") }
+
+        assertThat(
+            result,
+            samePropertyValuesAs(NetworkResponse.Error.UnknownError(code = 999, message = ""))
+        )
+    }
+
+    /*
+        GIVEN the mockedDataSource.getItem return NetworkResponse.Error
+        WHEN call repository.getItem
+        THEN should call mockedDataSource.getItem one time
+            AND the result should be the return of mockedDataSource.getItem
+     */
+    @Test
+    fun validateErrorGetItem() = runTest {
+        val response = NetworkResponse.Error.UnknownError(code = 500, message = "")
 
         coEvery { mockedDataSource.getItem(any()) } returns response
 
@@ -31,6 +75,6 @@ internal class DetailsRepositoryTest {
 
         coVerify(exactly = 1) { mockedDataSource.getItem("1") }
 
-        assertThat(response, equalTo(result))
+        assertThat(result, samePropertyValuesAs(response))
     }
 }

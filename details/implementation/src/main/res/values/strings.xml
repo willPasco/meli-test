@@ -6,4 +6,9 @@
     <string name="product_details_attributes_title">Características</string>
     <string name="product_details_buy_button_label">Comprar</string>
     <string name="product_details_title_label">Detalhes do Produto</string>
+    <string name="product_details_error_network_message">Opa, parece que está rolando um problema de conexão! \nVerifique sua internet e tente novamente.</string>
+    <string name="product_details_error_retry_button">Tentar Novamente</string>
+    <string name="product_details_error_generic_message">Parece que as coisas não estão muito boas :/\nEstamos trabalhando para tentar resolver!</string>
+    <string name="product_details_error_not_found_message">Parece que o produto que você estava procurando não está mais disponível, desculpa!</string>
+    <string name="product_details_error_back_button">Voltar</string>
 </resources>
