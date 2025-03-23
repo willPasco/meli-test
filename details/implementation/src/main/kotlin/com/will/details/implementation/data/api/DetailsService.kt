@@ -8,5 +8,5 @@ import retrofit2.http.Query
 internal interface DetailsService {
 
     @GET("items")
-    suspend fun getItem(@Query("ids") itemId: String): NetworkResponse<DetailsResponse>
+    suspend fun getItem(@Query("ids") itemId: String): NetworkResponse<List<DetailsResponse>>
 }

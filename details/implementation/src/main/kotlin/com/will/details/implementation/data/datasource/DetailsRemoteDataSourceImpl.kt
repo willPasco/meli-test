@@ -12,7 +12,7 @@ internal class DetailsRemoteDataSourceImpl(
     private val detailsService: DetailsService,
 ) : DetailsRemoteDataSource {
 
-    override suspend fun getItem(itemId: String): NetworkResponse<DetailsResponse> = withContext(dispatcher) {
+    override suspend fun getItem(itemId: String): NetworkResponse<List<DetailsResponse>> = withContext(dispatcher) {
         detailsService.getItem(itemId)
     }
 }

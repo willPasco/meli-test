@@ -48,7 +48,7 @@ internal class ListingViewModelTest {
      */
     @Test
     fun validateOnItemClickedUiAction() = testScope.runTest {
-        viewModel.onUiAction(ListingUiAction.OnItemClicked)
+        viewModel.onUiAction(ListingUiAction.OnItemClicked(""))
         coVerify(exactly = 1) { mockedNavigator.navigate(any<DetailsDestination>()) }
     }
 }

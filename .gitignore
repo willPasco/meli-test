@@ -35,3 +35,5 @@ google-services.json
 gradle/build-logic/.kotlin/sessions/
 
 core/network/implementation/src/main/cpp/com/will/core/network/security/NetworkSecurity.cpp
+
+*.salive

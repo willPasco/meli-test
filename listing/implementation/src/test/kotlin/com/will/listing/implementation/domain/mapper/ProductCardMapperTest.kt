@@ -50,7 +50,7 @@ internal class ProductCardMapperTest {
     }
 
     /*
-        GIVEN the SearchResponse has a list with ProductResponse with non nul values
+        GIVEN the SearchResponse has a list with ProductResponse with non null values
         WHEN call mapper.map
         THEN should return a list of ProductCard with the props filled
      */

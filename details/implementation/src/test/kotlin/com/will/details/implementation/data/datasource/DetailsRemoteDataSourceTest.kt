@@ -23,20 +23,20 @@ internal class DetailsRemoteDataSourceTest {
         detailsService = mockedService,
     )
 
-    /***
+    /*
         WHEN call dataSource.getItem
         THEN should call mockedService.getItem one time
             AND the result should be the return of mockedService.getItem
      */
     @Test
     fun validateGetItem() = testScope.runTest {
-        val response = NetworkResponse.Success(DetailsResponse())
+        val response = NetworkResponse.Success(listOf(DetailsResponse(code = null, body = null)))
 
         coEvery { mockedService.getItem(any()) } returns response
 
-        val result = dataSource.getItem(itemId)
+        val result = dataSource.getItem("1")
 
-        coVerify(exactly = 1) { mockedService.getItem(any()) }
+        coVerify(exactly = 1) { mockedService.getItem("1") }
 
         assertThat(response, equalTo(result))
     }
