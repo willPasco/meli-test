@@ -16,20 +16,20 @@ internal class DetailsRepositoryTest {
     private val mockedDataSource = mockk<DetailsRemoteDataSource>()
     private val repository = DetailsRepositoryImpl(mockedDataSource)
 
-    /***
-    WHEN call repository.getItem
-    THEN should call mockedDataSource.getItem one time
-    AND the result should be the return of mockedDataSource.getItem
+    /*
+        WHEN call repository.getItem
+        THEN should call mockedDataSource.getItem one time
+            AND the result should be the return of mockedDataSource.getItem
      */
     @Test
     fun validateGetItem() = runTest {
-        val response = NetworkResponse.Success(DetailsResponse())
+        val response = NetworkResponse.Success(listOf(DetailsResponse(code = null, body = null)))
 
-        coEvery { mockedDataSource.getItem(itemId) } returns response
+        coEvery { mockedDataSource.getItem(any()) } returns response
 
-        val result = repository.getItem(itemId)
+        val result = repository.getItem("1")
 
-        coVerify(exactly = 1) { mockedDataSource.getItem(itemId) }
+        coVerify(exactly = 1) { mockedDataSource.getItem("1") }
 
         assertThat(response, equalTo(result))
     }

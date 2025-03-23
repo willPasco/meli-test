@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="product_details_price">R$ %.2f</string>
+    <string name="product_details_description_title">Descrição</string>
+    <string name="product_details_attributes_title">Características</string>
+    <string name="product_details_buy_button_label">Comprar</string>
+    <string name="product_details_title_label">Detalhes do Produto</string>
+</resources>
