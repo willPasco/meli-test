@@ -8,5 +8,6 @@ internal class ListingRepositoryImpl(
     private val dataSource: ListingRemoteDataSource,
 ) : ListingRepository {
 
-    override suspend fun searchTerm(): NetworkResponse<SearchResponse> = dataSource.searchTerm()
+    override suspend fun searchTerm(term: String, offset: Int): NetworkResponse<SearchResponse> =
+        dataSource.searchTerm(offset = offset, term = term)
 }

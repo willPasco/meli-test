@@ -1,77 +1,43 @@
 package com.will.listing.implementation.domain.usecase
 
-import com.will.core.network.api.model.NetworkResponse
-import com.will.listing.implementation.data.model.SearchResponse
-import com.will.listing.implementation.data.repository.ListingRepository
-import com.will.listing.implementation.domain.mapper.ProductCardMapper
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.coVerifyOrder
+import androidx.paging.Pager
+import androidx.paging.PagingData
+import com.will.listing.implementation.domain.model.ProductCard
+import com.will.listing.implementation.domain.model.TermHolder
+import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.core.IsEqual.equalTo
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 internal class SearchTermUseCaseTest {
 
-    private val mockedMapper = mockk<ProductCardMapper>(relaxed = true)
-    private val mockedRepository = mockk<ListingRepository>()
+    private val mockedPageSource = mockk<Pager<Int, ProductCard>>(relaxed = true)
+    private val holder = TermHolder()
     private val useCase = SearchTermUseCaseImpl(
-        listingRepository = mockedRepository,
-        mapper = mockedMapper,
+        listingPagingSource = mockedPageSource,
+        termHolder = holder
     )
 
     /*
-        GIVEN the mockedRepository.searchTerm returns NetworkResponse.Success
-        WHEN call useCase.execute\
-        THEN should call mockedRepository.searchTerm
-            AND call mockedMapper.map
-            AND return a Result.Success with a list of product cards returned by mockedMapper.map
+        WHEN call useCase.execute
+        THEN change the holder term to the value passed in execute call
+            AND call mockedPageSource.flow
+            AND returns the flow object returned by paging source
      */
     @Test
     fun validateSuccessResponse() = runTest {
-        coEvery { mockedRepository.searchTerm() } returns NetworkResponse.Success(
-            SearchResponse(null)
-        )
+        val dummyFlow: Flow<PagingData<ProductCard>> = flowOf()
+        every { mockedPageSource.flow } returns dummyFlow
+        val result = useCase.execute("term")
 
-        coEvery { mockedMapper.map(any()) } returns emptyList()
-
-        val result = useCase.execute()
-
-        coVerifyOrder {
-            mockedRepository.searchTerm()
-            mockedMapper.map(any())
-        }
-
-        assertThat(result, equalTo(Result.success(emptyList())))
-    }
-
-    /*
-        GIVEN the mockedRepository.searchTerm returns NetworkResponse.Error.ClientError
-        WHEN call useCase.execute
-        THEN should call mockedRepository.searchTerm
-            AND not call mockedMapper.map
-            AND return a Result.Failure with the Exception
-     */
-    @Test
-    fun validateErrorResponse() = runTest {
-        coEvery { mockedRepository.searchTerm() } returns NetworkResponse.Error.ClientError(
-            code = null,
-            message = "message"
-        )
-
-        val result = useCase.execute()
-
-        coVerify(exactly = 1) {
-            mockedRepository.searchTerm()
-        }
-
-        coVerify(exactly = 0) {
-            mockedMapper.map(any())
-        }
-
-        assertTrue(result.exceptionOrNull() is Exception)
+        assertTrue(holder.term == "term")
+        verify { mockedPageSource.flow }
+        assertThat(result, equalTo(dummyFlow))
     }
 }

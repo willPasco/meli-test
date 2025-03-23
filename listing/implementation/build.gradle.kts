@@ -21,5 +21,8 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
 
+    implementation(libs.androidx.paging.runtime)
+    implementation (libs.androidx.paging.compose)
+
     testImplementation(libs.bundles.unit.test)
 }

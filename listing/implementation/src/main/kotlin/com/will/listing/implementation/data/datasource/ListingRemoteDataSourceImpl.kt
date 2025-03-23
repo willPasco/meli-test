@@ -10,10 +10,10 @@ import kotlinx.coroutines.withContext
 internal class ListingRemoteDataSourceImpl(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val listingService: ListingService,
-) :
-    ListingRemoteDataSource {
+) : ListingRemoteDataSource {
 
-    override suspend fun searchTerm(): NetworkResponse<SearchResponse> = withContext(dispatcher) {
-        listingService.searchTerm("Motorola")
-    }
+    override suspend fun searchTerm(offset: Int, term: String): NetworkResponse<SearchResponse> =
+        withContext(dispatcher) {
+            listingService.searchTerm(term = term, offset = offset)
+        }
 }

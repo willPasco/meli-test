@@ -30,7 +30,8 @@ internal class ProductCardMapperTest {
                     seller = null,
                     id = null
                 )
-            )
+            ),
+            paging = null,
         )
         val result = mapper.map(response)
         val expected = listOf(
@@ -66,7 +67,8 @@ internal class ProductCardMapperTest {
                     seller = SellerResponse(nickname = "nick"),
                     id = "1"
                 )
-            )
+            ),
+            paging = null
         )
         val result = mapper.map(response)
         val expected = listOf(
@@ -92,7 +94,7 @@ internal class ProductCardMapperTest {
      */
     @Test
     fun validateEmptyResponse() {
-        val response = SearchResponse(null)
+        val response = SearchResponse(results = null, paging = null)
         val result = mapper.map(response)
         assertTrue(result.isEmpty())
     }

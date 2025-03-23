@@ -1,24 +1,18 @@
 package com.will.listing.implementation.domain.usecase
 
-import com.will.core.network.api.extensions.onError
-import com.will.core.network.api.extensions.onSuccess
-import com.will.listing.implementation.data.repository.ListingRepository
-import com.will.listing.implementation.domain.mapper.ProductCardMapper
+import androidx.paging.Pager
+import androidx.paging.PagingData
 import com.will.listing.implementation.domain.model.ProductCard
+import com.will.listing.implementation.domain.model.TermHolder
+import kotlinx.coroutines.flow.Flow
 
 internal class SearchTermUseCaseImpl(
-    private val listingRepository: ListingRepository,
-    private val mapper: ProductCardMapper,
+    private val listingPagingSource: Pager<Int, ProductCard>,
+    private var termHolder: TermHolder
 ) : SearchTermUseCase {
 
-    override suspend fun execute(): Result<List<ProductCard>> = listingRepository.searchTerm().run {
-        onSuccess { response ->
-            return Result.success(mapper.map(response.value))
-        }
-        onError { error ->
-            return Result.failure(Exception(error.message))
-        }
-
-        return Result.failure(Exception(""))
+    override fun execute(term: String): Flow<PagingData<ProductCard>> {
+        termHolder.term = term
+        return listingPagingSource.flow
     }
 }
