@@ -5,5 +5,5 @@ import com.will.listing.implementation.data.model.SearchResponse
 
 internal interface ListingRemoteDataSource {
 
-    suspend fun searchTerm(): NetworkResponse<SearchResponse>
+    suspend fun searchTerm(offset: Int, term: String): NetworkResponse<SearchResponse>
 }

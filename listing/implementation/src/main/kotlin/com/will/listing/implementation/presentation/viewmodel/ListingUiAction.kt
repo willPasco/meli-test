@@ -4,6 +4,6 @@ internal typealias ListingUiActionInvoke = (ListingUiAction) -> Unit
 
 internal sealed interface ListingUiAction {
 
-    data object SearchTerm : ListingUiAction
-    class OnItemClicked(val itemId: String) : ListingUiAction
+    data class SearchTerm(val term: String) : ListingUiAction
+    data class OnItemClicked(val itemId: String) : ListingUiAction
 }

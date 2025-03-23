@@ -22,7 +22,7 @@ internal class ListingViewModel(
 
     val onUiAction: (ListingUiAction) -> Unit = { action ->
         when (action) {
-            is ListingUiAction.SearchTerm -> searchTerm()
+            is ListingUiAction.SearchTerm -> searchTerm(action.term)
             is ListingUiAction.OnItemClicked -> navigateToProductDetails(action.itemId)
         }
     }
@@ -31,11 +31,14 @@ internal class ListingViewModel(
         navigator.navigate(DetailsDestination(itemId))
     }
 
-    private fun searchTerm() {
+    private fun searchTerm(term: String) {
         viewModelScope.launch(dispatcher) {
-            searchTermUseCase.execute().onSuccess { productList ->
-                _uiState.emit(ListingUiState.ShowProductList(productList))
-            }
+            _uiState.emit(
+                ListingUiState.ShowProductList(
+                    productPagingFlow = searchTermUseCase.execute(term),
+                    term = term,
+                )
+            )
         }
     }
 }

@@ -12,5 +12,7 @@ internal val dataModule = module {
 
     factory<ListingService> { createService(ListingService::class.java) }
     factory<ListingRemoteDataSource> { ListingRemoteDataSourceImpl(listingService = get()) }
-    factory<ListingRepository> { ListingRepositoryImpl(dataSource = get()) }
+    factory<ListingRepository> {
+        ListingRepositoryImpl(dataSource = get())
+    }
 }

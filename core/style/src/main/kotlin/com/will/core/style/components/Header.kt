@@ -17,7 +17,7 @@ import com.will.core.style.theme.MeliTestTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-public fun Header(modifier: Modifier = Modifier, title: String, backAction: (() -> Unit)?) {
+public fun Header(modifier: Modifier = Modifier, title: String, backAction: (() -> Unit)? = null) {
     CenterAlignedTopAppBar(
         modifier = modifier,
         colors = TopAppBarColors(

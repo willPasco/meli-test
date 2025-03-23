@@ -1,12 +1,16 @@
 package com.will.listing.implementation.presentation.viewmodel
 
+import androidx.paging.PagingData
 import app.cash.turbine.test
 import com.will.core.navigation.api.controller.Navigator
 import com.will.details.api.navigation.DetailsDestination
+import com.will.listing.implementation.domain.model.ProductCard
 import com.will.listing.implementation.domain.usecase.SearchTermUseCase
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
@@ -28,17 +32,21 @@ internal class ListingViewModelTest {
     /*
         GIVEN the mockedUseCase.execute returns Result.success
         WHEN receive the ListingUiAction.SearchTerm
-        THEN fire the ListingUiState.ShowProductList with the list returned by mockedUseCase.execute
+        THEN fire the ListingUiState.ShowProductList with the flow returned by mockedUseCase.execute
      */
     @Test
     fun validateSearchTermUiAction() = testScope.runTest {
-        coEvery { mockedUseCase.execute() } returns Result.success(emptyList())
+        val dummyFlow: Flow<PagingData<ProductCard>> = flowOf()
+        coEvery { mockedUseCase.execute(any()) } returns dummyFlow
         viewModel.uiState.test {
             assertEquals(ListingUiState.Uninitialized, awaitItem())
 
-            viewModel.onUiAction(ListingUiAction.SearchTerm)
+            viewModel.onUiAction(ListingUiAction.SearchTerm("term"))
 
-            assertEquals(ListingUiState.ShowProductList(emptyList()), awaitItem())
+            assertEquals(
+                ListingUiState.ShowProductList(productPagingFlow = dummyFlow, term = "term"),
+                awaitItem()
+            )
         }
     }
 
