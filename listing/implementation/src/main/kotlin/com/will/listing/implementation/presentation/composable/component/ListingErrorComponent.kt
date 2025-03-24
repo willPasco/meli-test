@@ -1,4 +1,4 @@
-package com.will.listing.implementation.presentation.composable
+package com.will.listing.implementation.presentation.composable.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,12 +15,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.will.core.style.components.PrimaryButton
 import com.will.core.style.theme.MeliTestTheme
-import com.will.listing.implementation.domain.model.ListingError
+import com.will.listing.implementation.domain.model.PagingError
 
 @Composable
 internal fun ListingErrorComponent(
     modifier: Modifier = Modifier,
-    error: ListingError,
+    error: PagingError,
     onRetryClicked: () -> Unit,
 ) {
     Column(
@@ -60,6 +60,6 @@ internal fun ListingErrorComponent(
 @Preview
 internal fun ListingErrorComponentPreview() {
     MeliTestTheme {
-        ListingErrorComponent(error = ListingError.GenericError) {}
+        ListingErrorComponent(error = PagingError.GenericError) {}
     }
 }

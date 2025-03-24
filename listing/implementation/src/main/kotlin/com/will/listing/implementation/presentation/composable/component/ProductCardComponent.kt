@@ -1,4 +1,4 @@
-package com.will.listing.implementation.presentation.composable
+package com.will.listing.implementation.presentation.composable.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
