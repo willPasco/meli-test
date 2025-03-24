@@ -1,9 +1,12 @@
 package com.will.listing.implementation.domain.mapper
 
+import com.will.listing.implementation.data.model.InstallmentsResponse
 import com.will.listing.implementation.data.model.ProductResponse
 import com.will.listing.implementation.data.model.SearchResponse
 import com.will.listing.implementation.data.model.SellerResponse
 import com.will.listing.implementation.domain.model.ProductCard
+import com.will.listing.implementation.helper.getProductCardWithNulls
+import com.will.listing.implementation.helper.getProductResponseWithNulls
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.samePropertyValuesAs
 import org.junit.Assert.assertTrue
@@ -21,29 +24,11 @@ internal class ProductCardMapperTest {
     @Test
     fun validateNullValues() {
         val response = SearchResponse(
-            results = listOf(
-                ProductResponse(
-                    title = null,
-                    price = null,
-                    originalPrice = null,
-                    thumbnail = null,
-                    seller = null,
-                    id = null
-                )
-            ),
+            results = listOf(getProductResponseWithNulls()),
             paging = null,
         )
         val result = mapper.map(response)
-        val expected = listOf(
-            ProductCard(
-                title = "",
-                sellerName = "",
-                price = null,
-                discount = null,
-                image = "",
-                id = ""
-            )
-        )
+        val expected = listOf(getProductCardWithNulls())
 
         result.forEachIndexed { index, value ->
             assertThat(value, samePropertyValuesAs(expected[index]))
@@ -65,7 +50,10 @@ internal class ProductCardMapperTest {
                     originalPrice = 11.0,
                     thumbnail = "thumb",
                     seller = SellerResponse(nickname = "nick"),
-                    id = "1"
+                    id = "1",
+                    condition = "new",
+                    qtdAvailable = 2,
+                    installments = InstallmentsResponse(quantity = 2)
                 )
             ),
             paging = null
@@ -75,10 +63,13 @@ internal class ProductCardMapperTest {
             ProductCard(
                 title = "title",
                 sellerName = "nick",
-                price = 10.0,
-                discount = 11.0,
+                price = "10.00",
+                discount = "11.00",
                 image = "thumb",
-                id = "1"
+                id = "1",
+                isNew = true,
+                installments = 2,
+                qtdAvailable = 2,
             )
         )
 

@@ -1,7 +1,7 @@
 package com.will.details.implementation.presentation.composable
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.will.details.implementation.domain.model.Badge
+import com.will.core.style.domain.model.Badge
 import com.will.details.implementation.domain.model.ProductDetails
 
 internal class DetailsScreenParameterProvider : PreviewParameterProvider<ProductDetails> {

@@ -1,5 +1,7 @@
 package com.will.details.implementation.domain.model
 
+import com.will.core.style.domain.model.Badge
+
 internal class ProductDetails(
     val imageList: List<String>,
     val title: String,

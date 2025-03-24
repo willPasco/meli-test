@@ -23,7 +23,8 @@ import com.will.core.style.components.PrimaryButton
 import com.will.core.style.theme.MeliTestTheme
 import com.will.details.implementation.R
 import com.will.details.implementation.domain.model.ProductDetails
-import com.will.details.implementation.presentation.composable.components.BadgesComponent
+import com.will.core.style.components.BadgesComponent
+import com.will.core.style.theme.MeliTestDesignSystem
 import com.will.details.implementation.presentation.composable.components.DetailsScreenError
 import com.will.details.implementation.presentation.composable.components.DetailsScreenLoading
 import com.will.details.implementation.presentation.composable.components.ImageGalleryComponent
@@ -62,6 +63,7 @@ internal fun DetailsScreenWrapper(itemId: String, viewModel: DetailsViewModel = 
 private fun DetailsScreen(productDetails: ProductDetails, onUiAction: DetailsUiActionInvoke) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+        containerColor = MeliTestDesignSystem.Colors.offWhite,
         topBar = {
             Header(title = stringResource(R.string.product_details_title_label)) {
                 onUiAction(DetailsUiAction.OnBackClicked)
