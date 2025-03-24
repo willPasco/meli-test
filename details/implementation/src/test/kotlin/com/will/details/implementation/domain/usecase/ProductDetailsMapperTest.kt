@@ -72,7 +72,7 @@ internal class ProductDetailsMapperTest {
             title = "title",
             price = 10.0,
             discount = 20.0,
-            badges = listOf(Badge("value"), Badge("warranty")),
+            badges = listOf(Badge("warranty"), Badge("value")),
             description = "description",
             attributes = "name: value\n\nname: value\n\nname: value"
         )
