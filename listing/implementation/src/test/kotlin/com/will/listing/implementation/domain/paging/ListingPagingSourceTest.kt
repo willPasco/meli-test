@@ -5,10 +5,8 @@ import androidx.paging.PagingSource.LoadResult
 import com.will.core.network.api.model.NetworkResponse
 import com.will.listing.implementation.data.datasource.ListingRemoteDataSource
 import com.will.listing.implementation.data.model.PagingResponse
-import com.will.listing.implementation.data.model.ProductResponse
 import com.will.listing.implementation.data.model.SearchResponse
 import com.will.listing.implementation.domain.mapper.ProductCardMapper
-import com.will.listing.implementation.domain.model.ProductCard
 import com.will.listing.implementation.domain.model.TermHolder
 import com.will.listing.implementation.helper.getProductCardWithNulls
 import com.will.listing.implementation.helper.getProductResponseWithNulls
@@ -32,7 +30,6 @@ internal class ListingPagingSourceTest {
         termHolder = holder
     )
 
-    @Test
     /*
         GIVEN the mockedDataSource.searchTerm returned a list with 1 item and total = 1
         WHEN call pagingSource.load
@@ -42,6 +39,7 @@ internal class ListingPagingSourceTest {
             AND prevKey as null
             AND nextKey as null
      */
+    @Test
     fun validateLoadWithTotalReached() = runTest {
         val expected = listOf(getProductCardWithNulls())
         every { mockedMapper.map(any()) } returns expected
@@ -73,18 +71,19 @@ internal class ListingPagingSourceTest {
         )
     }
 
+    /*
+        GIVEN the mockedDataSource.searchTerm returned a list with 1 item and total = 10
+        WHEN call pagingSource.load
+        THEN should return a LoadResult.Page with the data returned by mockedMapper.map
+            AND should call mockedDataSource.searchTerm
+            AND should call mockedMapper.map in order
+            AND prevKey as null
+            AND nextKey as 1
+     */
     @Test
-            /*
-                GIVEN the mockedDataSource.searchTerm returned a list with 1 item and total = 10
-                WHEN call pagingSource.load
-                THEN should return a LoadResult.Page with the data returned by mockedMapper.map
-                    AND should call mockedDataSource.searchTerm
-                    AND should call mockedMapper.map in order
-                    AND prevKey as null
-                    AND nextKey as 1
-             */
     fun validateLoadWithNextAvailable() = runTest {
-        val expected = listOf(getProductCardWithNulls(), getProductCardWithNulls(), getProductCardWithNulls())
+        val expected =
+            listOf(getProductCardWithNulls(), getProductCardWithNulls(), getProductCardWithNulls())
         every { mockedMapper.map(any()) } returns expected
         coEvery { mockedDataSource.searchTerm(any(), any()) } returns NetworkResponse.Success(
             value = SearchResponse(
