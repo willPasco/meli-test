@@ -5,5 +5,5 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 internal val presentationModule = module {
-    viewModel { ListingViewModel(searchTermUseCase = get(), navigator = get()) }
+    viewModel { ListingViewModel(pagingManager = get(), navigator = get()) }
 }
