@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="listing_title_label">Buscar produto</string>
+    <string name="listing_empty_error_title">Procurei mas não achei! );</string>
+    <string name="listing_empty_error_message">Infelizmente não temos resultados para esta busca. Tente buscar outra coisa!</string>
+    <string name="listing_generic_error_title">Parece que está acontecendo algum problema.</string>
+    <string name="listing_generic_error_message">Desculpe mas tente novamente mais tarde enquanto tento consertar aqui!</string>
+    <string name="listing_network_error_title">Não conseguimos estabelecer conexão com você!</string>
+    <string name="listing_network_error_message">Hmmm.. Já verificou sua conexão com a internet?</string>
+    <string name="listing_error_retry_button">Tentar Novamente</string>
+
     <string name="product_card_new_badge_label">Novo</string>
     <string name="product_card_discount_label">De: R$ %s</string>
     <string name="product_card_price_label">R$ %s</string>

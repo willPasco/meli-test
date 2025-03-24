@@ -2,11 +2,12 @@ package com.will.listing.implementation.domain.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.will.core.network.api.extensions.onError
+import com.will.core.network.api.extensions.onNetworkError
 import com.will.core.network.api.extensions.onSuccess
 import com.will.listing.implementation.data.datasource.ListingRemoteDataSource
 import com.will.listing.implementation.data.model.PagingResponse
 import com.will.listing.implementation.domain.mapper.ProductCardMapper
+import com.will.listing.implementation.domain.model.ListingError
 import com.will.listing.implementation.domain.model.ProductCard
 import com.will.listing.implementation.domain.model.TermHolder
 
@@ -25,18 +26,18 @@ internal class ListingPagingSource(
             val paging = response.value.paging
 
             if (paging?.total == 0 || response.value.results.isNullOrEmpty())
-                return@load LoadResult.Error(Exception(""))
+                return@load LoadResult.Error(ListingError.EmptyList)
 
             return@load LoadResult.Page(
                 data = mapper.map(response.value),
                 prevKey = getPrevKey(offset, paging),
                 nextKey = getNextKey(getNextOffset(offset, paging), paging)
             )
-        }.onError {
-            return@load LoadResult.Error(Exception(""))
+        }.onNetworkError {
+            return@load LoadResult.Error(ListingError.NetworkError)
         }
 
-        return LoadResult.Error(Exception(""))
+        return LoadResult.Error(ListingError.GenericError)
     }
 
     private fun getNextOffset(
