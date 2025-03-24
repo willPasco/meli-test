@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.olxbr.core.components.implementation.skeleton.Shimmer
 import com.will.core.style.components.Header
+import com.will.core.style.theme.MeliTestDesignSystem
 import com.will.core.style.theme.MeliTestTheme
 import com.will.details.implementation.R
 import com.will.details.implementation.presentation.viewmodel.DetailsUiAction
@@ -33,7 +34,8 @@ internal fun DetailsScreenLoading(onUiAction: DetailsUiActionInvoke) {
             Header(title = stringResource(R.string.product_details_title_label)) {
                 onUiAction(DetailsUiAction.OnBackClicked)
             }
-        }
+        },
+        containerColor = MeliTestDesignSystem.Colors.offWhite,
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
             Shimmer(

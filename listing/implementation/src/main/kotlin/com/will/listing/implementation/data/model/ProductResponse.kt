@@ -11,5 +11,9 @@ internal class ProductResponse(
     @SerialName("original_price")
     val originalPrice: Double?,
     val thumbnail: String?,
+    val condition: String?,
     val seller: SellerResponse?,
+    @SerialName("available_quantity")
+    val qtdAvailable: Int?,
+    val installments: InstallmentsResponse?,
 )

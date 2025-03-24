@@ -3,7 +3,7 @@ package com.will.details.implementation.domain.usecase
 import com.will.details.implementation.data.model.AttributesResponse
 import com.will.details.implementation.data.model.DetailsBodyResponse
 import com.will.details.implementation.data.model.PicturesResponse
-import com.will.details.implementation.domain.model.Badge
+import com.will.core.style.domain.model.Badge
 import com.will.details.implementation.domain.model.ProductDetails
 
 private const val NEW_CONDITION_ID = 2230284
@@ -30,8 +30,8 @@ internal class ProductDetailsMapperImpl : ProductDetailsMapper {
             }
 
     private fun mapBadges(response: DetailsBodyResponse) = mutableListOf<Badge>().apply {
-        conditionNewValue?.let { add(Badge(it)) }
         response.warranty?.let { add(Badge(it)) }
+        conditionNewValue?.let { add(Badge(it)) }
     }
 
     private fun mapImages(pictures: List<PicturesResponse>?) = pictures?.mapNotNull {

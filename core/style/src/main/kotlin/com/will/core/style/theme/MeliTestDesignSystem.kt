@@ -11,6 +11,7 @@ public sealed interface MeliTestDesignSystem {
         public val gray: Color = Color.Gray
         public val softGray: Color = Color(0xB54B4B4B)
         public val white: Color = Color.White
+        public val offWhite: Color = Color(0xB5F3F3F3)
         public val green: Color = Color(0xB5015E12)
     }
 }

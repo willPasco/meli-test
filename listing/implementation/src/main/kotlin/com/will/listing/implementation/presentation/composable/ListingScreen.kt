@@ -18,6 +18,7 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.will.core.style.components.Header
+import com.will.core.style.theme.MeliTestDesignSystem
 import com.will.listing.implementation.R
 import com.will.listing.implementation.domain.model.ProductCard
 import com.will.listing.implementation.presentation.viewmodel.ListingUiAction
@@ -48,6 +49,7 @@ private fun PagingListingScreen(
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+        containerColor = MeliTestDesignSystem.Colors.offWhite,
         topBar = {
             Header(title = stringResource(R.string.listing_title_label))
         }

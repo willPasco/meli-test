@@ -23,6 +23,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             }
 
             extensions.configure<ApplicationExtension> {
+                defaultConfig.targetSdk = libs.findVersion("targetSdk").get().toString().toInt()
                 baseConfig(this, libs)
             }
         }

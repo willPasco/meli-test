@@ -10,6 +10,8 @@ import com.will.listing.implementation.data.model.SearchResponse
 import com.will.listing.implementation.domain.mapper.ProductCardMapper
 import com.will.listing.implementation.domain.model.ProductCard
 import com.will.listing.implementation.domain.model.TermHolder
+import com.will.listing.implementation.helper.getProductCardWithNulls
+import com.will.listing.implementation.helper.getProductResponseWithNulls
 import io.mockk.coEvery
 import io.mockk.coVerifyOrder
 import io.mockk.every
@@ -41,11 +43,11 @@ internal class ListingPagingSourceTest {
             AND nextKey as null
      */
     fun validateLoadWithTotalReached() = runTest {
-        val expected = listOf(getDummyProductCard())
+        val expected = listOf(getProductCardWithNulls())
         every { mockedMapper.map(any()) } returns expected
         coEvery { mockedDataSource.searchTerm(any(), any()) } returns NetworkResponse.Success(
             value = SearchResponse(
-                results = listOf(getDummyProductResponse()),
+                results = listOf(getProductResponseWithNulls()),
                 paging = PagingResponse(total = 1, limit = 1)
             )
         )
@@ -82,11 +84,11 @@ internal class ListingPagingSourceTest {
                     AND nextKey as 1
              */
     fun validateLoadWithNextAvailable() = runTest {
-        val expected = listOf(getDummyProductCard(), getDummyProductCard(), getDummyProductCard())
+        val expected = listOf(getProductCardWithNulls(), getProductCardWithNulls(), getProductCardWithNulls())
         every { mockedMapper.map(any()) } returns expected
         coEvery { mockedDataSource.searchTerm(any(), any()) } returns NetworkResponse.Success(
             value = SearchResponse(
-                results = listOf(getDummyProductResponse()),
+                results = listOf(getProductResponseWithNulls()),
                 paging = PagingResponse(total = 10, limit = 1)
             )
         )
@@ -106,23 +108,4 @@ internal class ListingPagingSourceTest {
             )
         )
     }
-
-
-    private fun getDummyProductResponse() = ProductResponse(
-        id = null,
-        title = null,
-        price = null,
-        originalPrice = null,
-        thumbnail = null,
-        seller = null
-    )
-
-    private fun getDummyProductCard() = ProductCard(
-        id = "",
-        title = "",
-        sellerName = "",
-        price = null,
-        discount = null,
-        image = ""
-    )
 }

@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="listing_title_label">Buscar produto</string>
+    <string name="product_card_new_badge_label">Novo</string>
+    <string name="product_card_discount_label">De: R$ %s</string>
+    <string name="product_card_price_label">R$ %s</string>
+    <string name="product_card_price_with_discount_label">Por: R$ %s</string>
+    <string name="product_card_installments_label">em até %dx</string>
+    <string name="product_card_quantity_label">Quantidades restantes: %d</string>
 </resources>
