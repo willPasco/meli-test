@@ -3,11 +3,13 @@ package com.will.meli.plugin
 import com.android.build.api.dsl.CommonExtension
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
+import io.gitlab.arturbosch.detekt.report.ReportMergeTask
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -52,10 +54,22 @@ private fun Project.configDetekt(libs: VersionCatalog) {
         reports {
             html.required.set(true)
             xml.required.set(true)
+            sarif.required.set(true)
         }
     }
 
     dependencies {
         add("detektPlugins", libs.findLibrary("detekt-formatting").get())
+    }
+
+    configMergeReport()
+}
+
+
+private fun Project.configMergeReport() {
+    tasks.register("reportMerge", ReportMergeTask::class) {
+        input.from("build/reports/detekt/detekt.sarif")
+        output.set(rootProject.layout.buildDirectory.file("reports/detektt/merge.sarif"))
+        merge()
     }
 }

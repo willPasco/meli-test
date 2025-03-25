@@ -41,3 +41,12 @@ jobs:
 
       - name: Unit Tests
         run: ./gradlew testDebug
+
+      - name: Run detekt
+        run: ./gradlew detekt reportMerge
+
+      - name: Upload SARIF 
+        uses: github/codeql-action/upload-sarif@v3
+        if: success() || failure()
+        with:
+          sarif_file: build/reports/detekt/detekt.sarif
