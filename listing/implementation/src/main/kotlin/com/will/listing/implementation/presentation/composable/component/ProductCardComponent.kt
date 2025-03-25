@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -38,7 +39,8 @@ internal fun ProductCardComponent(
 ) {
     Card(
         modifier = modifier
-            .height(200.dp),
+            .height(200.dp)
+            .testTag(productCard.id),
         colors = CardColors(
             containerColor = MeliTestDesignSystem.Colors.white,
             contentColor = MeliTestDesignSystem.Colors.black,

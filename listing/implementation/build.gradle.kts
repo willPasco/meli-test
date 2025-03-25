@@ -7,6 +7,8 @@ plugins {
 
 android {
     namespace = "com.will.listing.implementation"
+
+    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 dependencies {

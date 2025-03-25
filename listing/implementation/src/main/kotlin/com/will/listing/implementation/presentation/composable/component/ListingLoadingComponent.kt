@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.will.core.style.components.Shimmer
@@ -15,7 +16,7 @@ import com.will.core.style.theme.MeliTestTheme
 
 @Composable
 internal fun ListingLoadingComponent(modifier: Modifier = Modifier) {
-    Column(modifier = modifier) {
+    Column(modifier = modifier.testTag("listing-loading")) {
         repeat(6) {
             Shimmer(
                 modifier = Modifier

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -26,7 +27,8 @@ internal fun ListingErrorComponent(
     Column(
         modifier = modifier
             .padding(horizontal = 16.dp)
-            .fillMaxSize(),
+            .fillMaxSize()
+            .testTag("listing-error"),
         verticalArrangement = Arrangement.Center
     ) {
         Text(
@@ -48,7 +50,8 @@ internal fun ListingErrorComponent(
             PrimaryButton(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 12.dp),
+                    .padding(top = 12.dp)
+                    .testTag("retry-button"),
                 label = stringResource(error.buttonLabelResId),
                 onClick = onRetryClicked,
             )
