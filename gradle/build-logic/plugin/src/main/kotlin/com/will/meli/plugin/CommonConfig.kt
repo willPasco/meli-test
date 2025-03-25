@@ -67,9 +67,10 @@ private fun Project.configDetekt(libs: VersionCatalog) {
 
 
 private fun Project.configMergeReport() {
-    tasks.register("reportMerge", ReportMergeTask::class) {
+    tasks.register("runDetekt", ReportMergeTask::class) {
+        dependsOn("detekt")
         input.from("build/reports/detekt/detekt.sarif")
-        output.set(rootProject.layout.buildDirectory.file("reports/detektt/merge.sarif"))
+        output.set(rootProject.layout.buildDirectory.file("reports/detekt/merge.sarif"))
         merge()
     }
 }
