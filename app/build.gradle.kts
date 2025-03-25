@@ -1,4 +1,4 @@
-plugins {
+    plugins {
     alias(libs.plugins.convention.android.application)
     alias(libs.plugins.convention.compose)
     alias(libs.plugins.kotlin.serialization)
@@ -28,6 +28,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.activity)
     implementation(libs.androidx.material3)
 
     implementation(libs.koin.android)
