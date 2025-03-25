@@ -1,4 +1,4 @@
-package com.olxbr.core.components.implementation.skeleton
+package com.will.core.style.components
 
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
