@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.convention.android.library)
     alias(libs.plugins.convention.compose)
+    id(libs.plugins.paparazzi.get().pluginId)
 }
 
 android {
@@ -9,4 +10,5 @@ android {
 
 dependencies {
     implementation(libs.androidx.material3)
+    testImplementation(libs.bundles.unit.test)
 }
