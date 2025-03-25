@@ -20,9 +20,9 @@ import com.will.listing.implementation.presentation.viewmodel.ListingUiActionInv
 
 @Composable
 internal fun ListingPagingContent(
-    onUiAction: ListingUiActionInvoke,
     lazyListState: LazyListState,
-    pagingData: PagingData
+    pagingData: PagingData,
+    onUiAction: ListingUiActionInvoke,
 ) {
     val pagingState = pagingData.pagingState.collectAsStateWithLifecycle()
 

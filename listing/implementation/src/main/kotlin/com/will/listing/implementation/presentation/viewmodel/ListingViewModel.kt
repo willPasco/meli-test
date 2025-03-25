@@ -19,14 +19,13 @@ internal class ListingViewModel(
     private val dispatcher: CoroutineDispatcher = Dispatchers.Main.immediate,
     private val pagingManager: PagingManager,
     private val navigator: Navigator,
-    private val searchDebounce: Long = DEFAULT_DEBOUNCE_VALUE
+    private val searchDebounce: Long = DEFAULT_DEBOUNCE_VALUE,
+    initialState: ListingUiState = ListingUiState.Initialize(pagingManager.pagingData)
 ) : ViewModel() {
 
     private var searchJob: Job? = null
 
-    private val _uiState = MutableStateFlow<ListingUiState>(
-        ListingUiState.Initialize(pagingManager.pagingData)
-    )
+    private val _uiState = MutableStateFlow(initialState)
     val uiState: StateFlow<ListingUiState> = _uiState
 
     val onUiAction: (ListingUiAction) -> Unit = { action ->

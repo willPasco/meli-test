@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.convention.android.library)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.convention.compose)
+    id(libs.plugins.paparazzi.get().pluginId)
 }
 
 android {

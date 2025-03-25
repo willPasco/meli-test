@@ -3,9 +3,9 @@ package com.will.listing.implementation.domain.model
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-internal class PagingData {
+internal class PagingData(initialState: PagingState = PagingState.NotStarted()) {
 
-    private val _pagingState = MutableStateFlow<PagingState>(PagingState.NotStarted())
+    private val _pagingState = MutableStateFlow<PagingState>(initialState)
     val pagingState: StateFlow<PagingState> = _pagingState
 
     private val _itemList: MutableList<ProductCard> = mutableListOf()
