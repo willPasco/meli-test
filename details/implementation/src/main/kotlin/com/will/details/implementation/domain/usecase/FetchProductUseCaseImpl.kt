@@ -27,8 +27,9 @@ internal class FetchProductUseCaseImpl(
 
     private fun handleError(error: NetworkResponse<DetailsResponse>): Result<ProductDetails> {
         error.onClientError {
-            if (it.code == NOT_FOUND_STATUS_CODE)
+            if (it.code == NOT_FOUND_STATUS_CODE) {
                 return@handleError Result.failure(ProductNotFoundErrorThrowable())
+            }
         }
 
         error.onNetworkError {

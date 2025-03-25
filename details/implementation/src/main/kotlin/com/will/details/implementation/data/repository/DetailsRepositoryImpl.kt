@@ -16,10 +16,11 @@ internal class DetailsRepositoryImpl(
         dataSource.getItem(itemId).run {
             onSuccess { response ->
                 response.value.firstOrNull()?.let { item ->
-                    if (item.code != SUCCESS_STATUS_CODE)
+                    if (item.code != SUCCESS_STATUS_CODE) {
                         return@run getErrorByCode(item.code)
-                    else
+                    } else {
                         return@run map { item }
+                    }
                 }
             }
             this as NetworkResponse.Error

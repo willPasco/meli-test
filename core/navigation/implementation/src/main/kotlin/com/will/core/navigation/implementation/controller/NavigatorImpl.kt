@@ -36,7 +36,7 @@ internal class NavigatorImpl(
         }
     }
 
-    override fun finish(){
+    override fun finish() {
         coroutineScope.launch {
             _navigationChannel.send(Finish())
         }

@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.Color
 
 public sealed interface MeliTestDesignSystem {
 
-    public data object Colors: MeliTestDesignSystem {
+    public data object Colors : MeliTestDesignSystem {
 
         public val mainColor: Color = Color(0xBAFFEB3B)
         public val black: Color = Color.Black

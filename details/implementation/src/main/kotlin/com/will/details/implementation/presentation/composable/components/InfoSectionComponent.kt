@@ -70,7 +70,7 @@ internal fun InfoSectionComponent(
 @Composable
 private fun RowScope.getArrowIcon(isExpanded: Boolean) =
     takeIf { isExpanded }?.let {
-        painterResource(R.drawable.arrow_down)
+        painterResource(R.drawable.arrow_up)
     } ?: painterResource(R.drawable.arrow_down)
 
 @Composable

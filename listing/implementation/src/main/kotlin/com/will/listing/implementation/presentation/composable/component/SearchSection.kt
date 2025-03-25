@@ -11,7 +11,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -43,17 +42,19 @@ internal fun SearchSection(
     var isInitialized by rememberSaveable { mutableStateOf(false) }
 
     val animatedColor by animateColorAsState(
-        if (isInitialized)
+        if (isInitialized) {
             MeliTestDesignSystem.Colors.mainColor
-        else
-            MeliTestDesignSystem.Colors.offWhite,
+        } else {
+            MeliTestDesignSystem.Colors.offWhite
+        },
         label = "color"
     )
     val animatedPadding by animateDpAsState(
-        if (isInitialized)
+        if (isInitialized) {
             0.dp
-        else
-            LocalConfiguration.current.screenHeightDp.dp / SCREEN_DELIMITER,
+        } else {
+            LocalConfiguration.current.screenHeightDp.dp / SCREEN_DELIMITER
+        },
         label = "padding"
     )
 
@@ -65,7 +66,6 @@ internal fun SearchSection(
             .padding(top = animatedPadding)
             .testTag("search"),
     ) {
-
         var text by rememberSaveable { mutableStateOf("") }
 
         OutlinedTextField(

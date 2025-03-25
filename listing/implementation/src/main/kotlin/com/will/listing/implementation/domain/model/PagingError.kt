@@ -7,7 +7,7 @@ internal sealed class PagingError(
     @StringRes val titleResId: Int,
     @StringRes val messageResId: Int,
     @StringRes val buttonLabelResId: Int? = null
-){
+) {
 
     data object EmptyList : PagingError(
         titleResId = R.string.listing_empty_error_title,
@@ -30,5 +30,4 @@ internal sealed class PagingError(
         messageResId = R.string.listing_network_error_message,
         buttonLabelResId = R.string.listing_error_retry_button
     )
-
 }
