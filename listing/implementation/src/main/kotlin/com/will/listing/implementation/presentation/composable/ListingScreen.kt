@@ -1,18 +1,25 @@
 package com.will.listing.implementation.presentation.composable
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.unit.dp
 import com.will.core.style.theme.MeliTestDesignSystem
 import com.will.listing.implementation.domain.model.PagingData
 import com.will.listing.implementation.presentation.composable.component.ListingPagingContent
@@ -41,10 +48,18 @@ private fun PagingListingScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = MeliTestDesignSystem.Colors.offWhite,
+        topBar = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(46.dp)
+                    .background(MeliTestDesignSystem.Colors.mainColor)
+            )
+        }
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
-
             val lazyListState = rememberLazyListState()
+            val sholdShowShadow = remember { mutableStateOf(pagingData.itemList.isNotEmpty()) }
 
             val shouldStartPaginating by remember {
                 derivedStateOf {
