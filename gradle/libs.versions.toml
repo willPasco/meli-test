@@ -29,12 +29,15 @@ material = "1.12.0"
 turbine = "1.2.0"
 ndk = "25.2.9519653"
 paparazzi = "1.3.5"
+detekt = "1.23.8"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+detekt-gradle-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 hamcrest-library = { module = "org.hamcrest:hamcrest-library", version.ref = "hamcrest" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
@@ -84,6 +87,8 @@ convention-compose = { id = "meli.compose", version = "unspecified" }
 convention-android-library = { id = "meli.android.library", version.ref = "agp" }
 
 paparazzi = { id = "app.cash.paparazzi", version.ref = "paparazzi" }
+
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 
 [bundles]
 unit-test = ["junit", "androidx-junit", "turbine", "mockk", "kotlinx-coroutines-test", "hamcrest-library", "androidx-ui-test-junit4", "androidx-ui-test-manifest", "robolectric" ]
