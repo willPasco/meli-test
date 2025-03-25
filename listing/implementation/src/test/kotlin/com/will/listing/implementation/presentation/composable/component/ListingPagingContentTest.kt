@@ -71,7 +71,12 @@ internal class ListingPagingContentTest {
             val lazyListState = rememberLazyListState()
             ListingPagingContent(
                 lazyListState = lazyListState,
-                pagingData = PagingData(initialState = PagingState.Error(PagingError.GenericError))
+                pagingData = PagingData(
+                    initialState = PagingState.Error(
+                        PagingError.GenericError,
+                        ""
+                    )
+                )
             ) { }
         }
 
@@ -145,13 +150,18 @@ internal class ListingPagingContentTest {
             val lazyListState = rememberLazyListState()
             ListingPagingContent(
                 lazyListState = lazyListState,
-                pagingData = PagingData(initialState = PagingState.NotStarted(PagingError.GenericError)),
+                pagingData = PagingData(
+                    initialState = PagingState.Error(
+                        PagingError.GenericError,
+                        "term"
+                    )
+                ),
                 onUiAction = onUiAction
             )
         }
 
         composeTestRule.onNodeWithTag("retry-button").performClick()
-        verify { onUiAction(ListingUiAction.Fetch) }
+        verify { onUiAction(ListingUiAction.SearchTerm("term")) }
     }
 
     /*
