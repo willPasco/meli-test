@@ -34,7 +34,8 @@ internal fun PriceSectionComponent(
             fontSize = 20.sp,
             color = discount?.let {
                 MeliTestDesignSystem.Colors.green
-            } ?: MeliTestDesignSystem.Colors.black)
+            } ?: MeliTestDesignSystem.Colors.black
+        )
     }
 }
 

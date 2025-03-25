@@ -43,13 +43,12 @@ private fun PagingListingScreen(
         containerColor = MeliTestDesignSystem.Colors.offWhite,
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
-
             val lazyListState = rememberLazyListState()
 
             val shouldStartPaginating by remember {
                 derivedStateOf {
                     (lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: -1) ==
-                            lazyListState.layoutInfo.totalItemsCount.dec()
+                        lazyListState.layoutInfo.totalItemsCount.dec()
                 }
             }
 

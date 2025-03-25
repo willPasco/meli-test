@@ -12,7 +12,6 @@ private const val BASE_URL = "https://api.mercadolibre.com/"
 private const val CONTENT_TYPE = "application/json"
 
 @OptIn(ExperimentalSerializationApi::class)
-
 internal val retrofitModule = module {
     val json = Json {
         ignoreUnknownKeys = true

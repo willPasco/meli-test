@@ -5,5 +5,5 @@ import com.will.listing.implementation.domain.model.ProductCard
 
 internal fun interface ProductCardMapper {
 
-    fun map(searchResponse: SearchResponse) : List<ProductCard>
+    fun map(searchResponse: SearchResponse): List<ProductCard>
 }

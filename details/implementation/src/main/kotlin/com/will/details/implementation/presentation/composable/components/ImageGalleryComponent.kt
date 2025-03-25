@@ -23,4 +23,3 @@ internal fun ImageGalleryComponent(modifier: Modifier = Modifier, imageUrlList: 
         }
     }
 }
-

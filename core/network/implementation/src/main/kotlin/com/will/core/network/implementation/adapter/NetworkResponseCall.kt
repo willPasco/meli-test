@@ -55,7 +55,6 @@ internal class NetworkResponseCall<R>(
         }
     }
 
-
     override fun clone(): Call<NetworkResponse<R>> = NetworkResponseCall(call.clone(), responseType)
 
     override fun cancel() = call.cancel()

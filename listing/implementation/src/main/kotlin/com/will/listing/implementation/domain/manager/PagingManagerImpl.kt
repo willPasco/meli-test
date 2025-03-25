@@ -40,9 +40,11 @@ internal class PagingManagerImpl(
     }
 
     private fun isAllowedToPaginating() =
-        (pagingData.pagingState.value !is PagingState.Paginating ||
-                pagingData.pagingState.value !is PagingState.Loading) &&
-                pagingData.itemList.isNotEmpty()
+        (
+            pagingData.pagingState.value !is PagingState.Paginating ||
+                pagingData.pagingState.value !is PagingState.Loading
+            ) &&
+            pagingData.itemList.isNotEmpty()
 
     override suspend fun reset() {
         currentOffset = null
@@ -69,8 +71,9 @@ internal class PagingManagerImpl(
     private suspend fun handleSuccess(response: NetworkResponse.Success<SearchResponse>) {
         val paging = response.value.paging
 
-        if (paging?.total == 0 || response.value.results.isNullOrEmpty())
+        if (paging?.total == 0 || response.value.results.isNullOrEmpty()) {
             return pagingData.emitState(PagingState.Empty())
+        }
 
         prepareNextKey(paging)
         val mappedItems = mapper.map(response.value)

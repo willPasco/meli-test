@@ -25,7 +25,8 @@ internal class FetchProductUseCaseTest {
     private val mockedRepository = mockk<DetailsRepository>()
     private val mockedMapper = mockk<ProductDetailsMapper>()
     private val useCase = FetchProductUseCaseImpl(
-        detailsRepository = mockedRepository, mapper = mockedMapper
+        detailsRepository = mockedRepository,
+        mapper = mockedMapper
     )
     private val expected = ProductDetails(
         imageList = listOf(),
@@ -55,7 +56,8 @@ internal class FetchProductUseCaseTest {
             mockedRepository.getItem(any())
         } returns NetworkResponse.Success(
             DetailsResponse(
-                code = null, body = DetailsBodyResponse(
+                code = null,
+                body = DetailsBodyResponse(
                     title = null,
                     price = null,
                     originalPrice = null,
@@ -83,7 +85,7 @@ internal class FetchProductUseCaseTest {
     THEN should call mockedRepository.getItem
         AND not call mockedMapper.map
         AND return a Result.Failure with the ProductNotFoundErrorThrowable
- */
+     */
     @Test
     fun validateNotFoundErrorResponse() = runTest {
         coEvery { mockedRepository.getItem(any()) } returns NetworkResponse.Error.ClientError(
@@ -110,7 +112,7 @@ internal class FetchProductUseCaseTest {
         THEN should call mockedRepository.getItem
             AND not call mockedMapper.map
             AND return a Result.Failure with the ProductNetworkErrorThrowable
-    */
+     */
     @Test
     fun validateNetworkErrorResponse() = runTest {
         coEvery { mockedRepository.getItem(any()) } returns NetworkResponse.Error.NetworkError(
@@ -137,7 +139,7 @@ internal class FetchProductUseCaseTest {
         THEN should call mockedRepository.getItem
             AND not call mockedMapper.map
             AND return a Result.Failure with the ProductNetworkErrorThrowable
-    */
+     */
     @Test
     fun validateUnknownErrorResponse() = runTest {
         coEvery { mockedRepository.getItem(any()) } returns NetworkResponse.Error.UnknownError(

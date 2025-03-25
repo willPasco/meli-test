@@ -42,6 +42,7 @@ private fun Project.configDetekt(libs: VersionCatalog) {
         buildUponDefaultConfig = true
         allRules = false
         parallel = true
+        autoCorrect = true
     }
 
     tasks.withType(Detekt::class.java).configureEach {

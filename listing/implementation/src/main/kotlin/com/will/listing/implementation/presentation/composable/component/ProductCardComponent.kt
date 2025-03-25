@@ -59,7 +59,6 @@ internal fun ProductCardComponent(
                 contentScale = ContentScale.FillHeight
             )
             Column(modifier = Modifier.padding(start = 8.dp)) {
-
                 Text(
                     modifier = Modifier
                         .padding(top = 8.dp, end = 12.dp)
@@ -151,17 +150,19 @@ internal fun ProductCardComponent(
 private fun ProductCardPreview() {
     MeliTestTheme {
         ProductCardComponent(
-            productCard = (ProductCard(
-                title = "Title",
-                sellerName = "Seller",
-                price = "10.0",
-                discount = "20.0",
-                image = "",
-                id = "",
-                isNew = true,
-                qtdAvailable = 2,
-                installments = 16
-            ))
+            productCard = (
+                ProductCard(
+                    title = "Title",
+                    sellerName = "Seller",
+                    price = "10.0",
+                    discount = "20.0",
+                    image = "",
+                    id = "",
+                    isNew = true,
+                    qtdAvailable = 2,
+                    installments = 16
+                )
+                )
         ) {}
     }
 }

@@ -7,7 +7,7 @@ import org.koin.dsl.module
 
 internal val httpModule = module {
     factory<OkHttpClient> {
-       OkHttpClient.Builder().apply {
+        OkHttpClient.Builder().apply {
             addInterceptor(
                 HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
             )

@@ -39,17 +39,19 @@ internal fun SearchSection(
     var isInitialized by rememberSaveable { mutableStateOf(false) }
 
     val animatedColor by animateColorAsState(
-        if (isInitialized)
+        if (isInitialized) {
             MeliTestDesignSystem.Colors.mainColor
-        else
-            MeliTestDesignSystem.Colors.offWhite,
+        } else {
+            MeliTestDesignSystem.Colors.offWhite
+        },
         label = "color"
     )
     val animatedPadding by animateDpAsState(
-        if (isInitialized)
+        if (isInitialized) {
             0.dp
-        else
-            LocalConfiguration.current.screenHeightDp.dp / SCREEN_DELIMITER,
+        } else {
+            LocalConfiguration.current.screenHeightDp.dp / SCREEN_DELIMITER
+        },
         label = "padding"
     )
 
@@ -61,7 +63,6 @@ internal fun SearchSection(
             .padding(top = animatedPadding)
             .testTag("search")
     ) {
-
         var text by rememberSaveable { mutableStateOf("") }
 
         OutlinedTextField(
