@@ -1,10 +1,9 @@
 package com.will.core.navigation.implementation.controller
 
-import android.app.Activity
 import android.util.Log
+import androidx.activity.compose.LocalActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -24,7 +23,7 @@ internal class NavigationControllerImpl(
     @Composable
     override fun Setup(navHostController: NavHostController) {
         val lifeCycleOwner = LocalLifecycleOwner.current
-        val currentActivity = LocalContext.current as? Activity
+        val currentActivity = LocalActivity.current
 
         val state by navigator.navigationChannel.collectAsStateWithLifecycle(
             lifecycleOwner = lifeCycleOwner,

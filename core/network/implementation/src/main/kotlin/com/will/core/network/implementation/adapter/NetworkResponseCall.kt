@@ -9,7 +9,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.reflect.Type
-import java.net.UnknownHostException
 
 internal class NetworkResponseCall<R>(
     private val call: Call<R>,

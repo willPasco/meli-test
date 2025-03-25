@@ -11,4 +11,5 @@ dependencies {
     implementation(project(":core:navigation:api"))
 
     implementation(libs.koin.android)
+    implementation(libs.androidx.activity.compose)
 }
