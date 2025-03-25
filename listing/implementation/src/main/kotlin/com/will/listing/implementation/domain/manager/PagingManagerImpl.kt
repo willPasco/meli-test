@@ -63,7 +63,7 @@ internal class PagingManagerImpl(
     private suspend fun emitError(error: PagingError) {
         takeIf { (currentOffset ?: -1) > 0 }?.let {
             pagingData.emitState(PagingState.PaginationError(error))
-        } ?: pagingData.emitState(PagingState.Error(error))
+        } ?: pagingData.emitState(PagingState.Error(error = error, actualTerm = term))
     }
 
     private suspend fun handleSuccess(response: NetworkResponse.Success<SearchResponse>) {

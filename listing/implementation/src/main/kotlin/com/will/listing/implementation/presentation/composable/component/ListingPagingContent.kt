@@ -46,10 +46,6 @@ internal fun ListingPagingContent(
             lazyListScope = this,
             onUiAction = onUiAction
         )
-
-        item {
-            Spacer(modifier = Modifier.padding(top = 16.dp))
-        }
     }
 }
 
@@ -62,33 +58,33 @@ private fun handlePagingState(
         is PagingState.Error -> handleListingError(
             error = pagingState.error,
             lazyListScope = lazyListScope,
-            onUiActon = onUiAction,
-        )
+        ) {
+            onUiAction(ListingUiAction.SearchTerm(pagingState.actualTerm))
+        }
 
         PagingState.Loading -> lazyListScope.item {
             ListingLoadingComponent()
         }
 
         PagingState.Paginating -> lazyListScope.item {
-            PagingLoadingComponent(modifier = Modifier.fillMaxWidth())
+            PagingLoadingComponent(modifier = Modifier.fillMaxWidth().padding(top = 16.dp))
         }
 
         is PagingState.PaginationError -> handleListingError(
             error = pagingState.error,
             lazyListScope = lazyListScope,
-            onUiActon = onUiAction
-        )
+        ) {
+            onUiAction(ListingUiAction.Fetch)
+        }
 
         is PagingState.Empty -> handleListingError(
             error = pagingState.error,
             lazyListScope = lazyListScope,
-            onUiActon = onUiAction
         )
 
         is PagingState.NotStarted -> handleListingError(
             error = pagingState.error,
             lazyListScope = lazyListScope,
-            onUiActon = onUiAction
         )
 
         else -> Unit
@@ -98,14 +94,13 @@ private fun handlePagingState(
 private fun handleListingError(
     error: PagingError,
     lazyListScope: LazyListScope,
-    onUiActon: ListingUiActionInvoke,
+    retryAction: RetryAction = {}
 ) {
     lazyListScope.item {
         ListingErrorComponent(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(top = 16.dp, bottom = 8.dp),
             error = error,
-        ) {
-            onUiActon(ListingUiAction.Fetch)
-        }
+            onRetryClicked = retryAction,
+        )
     }
 }
