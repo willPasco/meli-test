@@ -10,7 +10,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,7 +40,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 internal fun DetailsScreenWrapper(itemId: String, viewModel: DetailsViewModel = koinViewModel()) {
-    when (val currentState = viewModel.uiState.collectAsStateWithLifecycle().value) {
+    when (val currentState = viewModel.uiState.collectAsState().value) {
         is DetailsUiState.Uninitialized -> {
             viewModel.onUiAction(DetailsUiAction.FetchProduct(itemId))
         }
@@ -62,7 +64,7 @@ internal fun DetailsScreenWrapper(itemId: String, viewModel: DetailsViewModel = 
 @Composable
 private fun DetailsScreen(productDetails: ProductDetails, onUiAction: DetailsUiActionInvoke) {
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().testTag("details-screen"),
         containerColor = MeliTestDesignSystem.Colors.offWhite,
         topBar = {
             Header(title = stringResource(R.string.product_details_title_label)) {

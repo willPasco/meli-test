@@ -1,5 +1,3 @@
-import java.net.URI
-
 plugins {
     alias(libs.plugins.convention.android.library)
     alias(libs.plugins.kotlin.serialization)
@@ -9,6 +7,8 @@ plugins {
 
 android {
     namespace = "com.will.details.implementation"
+
+    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 dependencies {

@@ -40,7 +40,7 @@ internal class DetailsViewModelTest {
         val productDetails = ProductDetails(
             imageList = listOf(),
             title = "",
-            price = 0.0,
+            price = "0.0",
             discount = null,
             badges = listOf(),
             description = null,

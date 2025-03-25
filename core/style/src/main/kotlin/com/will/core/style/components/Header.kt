@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.will.core.style.R
@@ -32,13 +33,15 @@ public fun Header(modifier: Modifier = Modifier, title: String, backAction: (() 
         },
         navigationIcon = {
             backAction?.let {
-                IconButton(onClick = backAction) {
+                IconButton(
+                    modifier = Modifier.testTag("header-back-button"),
+                    onClick = backAction
+                ) {
                     Icon(
                         painter = painterResource(R.drawable.arrow_back),
                         contentDescription = null
                     )
                 }
-
             }
         },
     )

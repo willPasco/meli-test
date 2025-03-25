@@ -10,7 +10,7 @@ internal class DetailsScreenParameterProvider : PreviewParameterProvider<Product
         ProductDetails(
             imageList = listOf(),
             title = "Title",
-            price = 90.0,
+            price = "90.0",
             discount = null,
             badges = listOf(),
             description = null,
@@ -19,8 +19,8 @@ internal class DetailsScreenParameterProvider : PreviewParameterProvider<Product
         ProductDetails(
             imageList = listOf(),
             title = "Title Large with a lot lot lot lot words",
-            price = 90.0,
-            discount = 100.0,
+            price = "90.0",
+            discount = "100.0",
             badges = listOf(Badge("Badge"), Badge("Badge")),
             description = null,
             attributes = "attributes: attribute",
@@ -28,7 +28,7 @@ internal class DetailsScreenParameterProvider : PreviewParameterProvider<Product
         ProductDetails(
             imageList = listOf(),
             title = "Title",
-            price = 90.0,
+            price = "90.0",
             discount = null,
             badges = listOf(),
             description = "Description",
@@ -37,8 +37,8 @@ internal class DetailsScreenParameterProvider : PreviewParameterProvider<Product
         ProductDetails(
             imageList = listOf(),
             title = "Title",
-            price = 90.0,
-            discount = 100.0,
+            price = "90.0",
+            discount = "100.0",
             badges = listOf(Badge("Badge"), Badge("Badge")),
             description = "Description",
             attributes = "attributes: attribute",

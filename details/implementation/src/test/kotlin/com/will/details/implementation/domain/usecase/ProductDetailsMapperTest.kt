@@ -1,9 +1,9 @@
 package com.will.details.implementation.domain.usecase
 
+import com.will.core.style.domain.model.Badge
 import com.will.details.implementation.data.model.AttributesResponse
 import com.will.details.implementation.data.model.DetailsBodyResponse
 import com.will.details.implementation.data.model.PicturesResponse
-import com.will.core.style.domain.model.Badge
 import com.will.details.implementation.domain.model.ProductDetails
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.samePropertyValuesAs
@@ -33,7 +33,7 @@ internal class ProductDetailsMapperTest {
         val expected = ProductDetails(
             imageList = listOf(),
             title = "",
-            price = 0.0,
+            price = "",
             discount = null,
             badges = listOf(),
             description = null,
@@ -70,8 +70,8 @@ internal class ProductDetailsMapperTest {
         val expected = ProductDetails(
             imageList = listOf("url"),
             title = "title",
-            price = 10.0,
-            discount = 20.0,
+            price = "10.00",
+            discount = "20.00",
             badges = listOf(Badge("warranty"), Badge("value")),
             description = "description",
             attributes = "name: value\n\nname: value\n\nname: value"

@@ -5,5 +5,5 @@ internal typealias DetailsUiActionInvoke = (DetailsUiAction) -> Unit
 internal sealed interface DetailsUiAction {
     data object OnBackClicked : DetailsUiAction
 
-    class FetchProduct(val itemId: String) : DetailsUiAction
+    data class FetchProduct(val itemId: String) : DetailsUiAction
 }
