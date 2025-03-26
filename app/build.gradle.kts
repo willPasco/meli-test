@@ -15,6 +15,10 @@ android {
         versionName = "0.1"
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -42,6 +46,7 @@ dependencies {
     implementation(project(":core:navigation:api"))
     implementation(project(":core:navigation:implementation"))
     implementation(project(":core:style"))
+    implementation(project(":core:logger"))
     implementation(project(":listing:implementation"))
     implementation(project(":details:implementation"))
 

@@ -59,7 +59,7 @@ jobs:
   deploy-release:
     needs: create-apk
     runs-on: ubuntu-latest
-    environment: release
+    environment: prod
 
     steps:
       - name: Check out the code
@@ -68,7 +68,7 @@ jobs:
   deploy-debug:
     needs: create-apk
     runs-on: ubuntu-latest
-    environment: debug
+    environment: dev
 
     steps:
       - name: Check out the code
@@ -84,13 +84,10 @@ jobs:
 
       - name: Create a release
         run: |
-          ls -la
           git config --global user.email "cd@cd.com"
           git config --global user.name "CD Bot"     
           
           VERSION=$BRANCH_NAME
           gh release create "release-$VERSION" app-debug.apk --title "Release $VERSION" --notes "Release generated on $(date)"
-          git tag -a "release-$VERSION" -m "Release version $VERSION"
-          git push origin "release-$VERSION"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
