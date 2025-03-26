@@ -11,6 +11,8 @@ import com.will.listing.implementation.domain.mapper.ProductCardMapper
 import com.will.listing.implementation.domain.model.PagingData
 import com.will.listing.implementation.domain.model.PagingError
 import com.will.listing.implementation.domain.model.PagingState
+import com.will.listing.implementation.domain.throwable.ProductListingThrowable
+import timber.log.Timber
 
 internal class PagingManagerImpl(
     private val repository: ListingRepository,
@@ -31,8 +33,7 @@ internal class PagingManagerImpl(
 
     override suspend fun fetch() {
         currentOffset?.let {
-            if (isAllowedToPaginating()
-            ) {
+            if (isAllowedToPaginating()) {
                 pagingData.emitState(PagingState.Paginating)
                 fetchProductCard(term)
             }
@@ -40,11 +41,9 @@ internal class PagingManagerImpl(
     }
 
     private fun isAllowedToPaginating() =
-        (
-            pagingData.pagingState.value !is PagingState.Paginating ||
-                pagingData.pagingState.value !is PagingState.Loading
-            ) &&
-            pagingData.itemList.isNotEmpty()
+        (pagingData.pagingState.value !is PagingState.Paginating ||
+                pagingData.pagingState.value !is PagingState.Loading) &&
+                pagingData.itemList.isNotEmpty()
 
     override suspend fun reset() {
         currentOffset = null
@@ -53,13 +52,21 @@ internal class PagingManagerImpl(
     }
 
     private suspend fun fetchProductCard(term: String) {
+        Timber.tag("Product Paging")
+            .d("Fetching products with term: $term in offset: $currentOffset")
         repository.searchTerm(term = term, offset = currentOffset ?: 0).onSuccess { response ->
             return@fetchProductCard handleSuccess(response)
         }.onNetworkError {
+            recordError(it.message)
             return@fetchProductCard emitError(PagingError.NetworkError)
         }.onError {
+            recordError(it.message)
             return@fetchProductCard emitError(PagingError.GenericError)
         }
+    }
+
+    private fun recordError(message: String) {
+        Timber.e(ProductListingThrowable(message))
     }
 
     private suspend fun emitError(error: PagingError) {

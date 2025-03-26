@@ -8,6 +8,7 @@ import okio.Timeout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 import java.lang.reflect.Type
 
 internal class NetworkResponseCall<R>(
@@ -30,6 +31,7 @@ internal class NetworkResponseCall<R>(
             }
 
             override fun onFailure(call: Call<R>, t: Throwable) {
+                Timber.e(t)
                 val error = if (t is IOException) {
                     NetworkResponse.Error.NetworkError(message = t.message.orEmpty())
                 } else {
@@ -40,16 +42,19 @@ internal class NetworkResponseCall<R>(
         }
     )
 
+    @Suppress("UNCHECKED_CAST")
     private fun <R> Response<R>.toNetworkResponse(): NetworkResponse<R> {
         if (!isSuccessful) {
-            return getErrorByCode(code = code(), body = errorBody().toString())
+            val errorBody = errorBody().toString()
+            Timber.e("Request was not successful: ${errorBody}")
+            return getErrorByCode(code = code(), body = errorBody)
         }
 
         return body().let { body ->
             if (body != null) {
                 NetworkResponse.Success(body)
             } else {
-                @Suppress("UNCHECKED_CAST")
+                Timber.d("Converting the response expected type to Unit because the body is null")
                 NetworkResponse.Success(Unit) as NetworkResponse<R>
             }
         }
