@@ -9,6 +9,7 @@ android {
 
 dependencies {
     implementation(project(":core:navigation:api"))
+    implementation(project(":core:logger"))
 
     implementation(libs.koin.android)
     implementation(libs.androidx.activity.compose)

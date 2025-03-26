@@ -1,6 +1,5 @@
 package com.will.core.navigation.implementation.controller
 
-import android.util.Log
 import androidx.activity.compose.LocalActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,6 +14,8 @@ import com.will.core.navigation.api.model.Destination
 import com.will.core.navigation.api.model.DestinationConfigs
 import com.will.core.navigation.implementation.model.Finish
 import com.will.core.navigation.implementation.model.PopBack
+import com.will.core.navigation.implementation.throwable.UnknownNavigationIntentThrowable
+import timber.log.Timber
 
 internal class NavigationControllerImpl(
     private val navigator: Navigator
@@ -33,6 +34,7 @@ internal class NavigationControllerImpl(
         state?.let {
             when (val currentState = state) {
                 is Destination -> safeAction(navHostController) {
+                    getTimber().d("Navigating to destination ${currentState.route}")
                     navHostController.navigate(
                         route = currentState.route,
                         navOptions = buildNavOptions(currentState.destinationConfigs)
@@ -53,18 +55,21 @@ internal class NavigationControllerImpl(
                     currentActivity?.finish()
                 }
 
-                else -> Log.e(
-                    NavigationControllerImpl::class.simpleName,
-                    "The value passed to navigator was not recognized",
-                )
+                else -> getTimber().e(UnknownNavigationIntentThrowable())
             }
-        }
+        } ?: getTimber().w("Current state in navigation is null")
     }
 }
 
+private fun getTimber() = Timber.tag("Navigator")
+
 private fun safeAction(navHostController: NavHostController, action: () -> Unit) {
-    if (navHostController.currentBackStackEntry?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
-        action()
+    navHostController.currentBackStackEntry?.lifecycle?.currentState.apply {
+        if (this == Lifecycle.State.RESUMED) {
+            action()
+        } else {
+            getTimber().w("Trying to navigate in state ${this?.name}")
+        }
     }
 }
 

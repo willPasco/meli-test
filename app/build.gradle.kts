@@ -1,7 +1,9 @@
-    plugins {
+plugins {
     alias(libs.plugins.convention.android.application)
     alias(libs.plugins.convention.compose)
     alias(libs.plugins.kotlin.serialization)
+    id(libs.plugins.google.services.get().pluginId)
+    id(libs.plugins.crashlytics.get().pluginId)
 }
 
 android {
