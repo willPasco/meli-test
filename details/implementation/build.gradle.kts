@@ -16,6 +16,7 @@ dependencies {
     implementation(project(":core:navigation:api"))
     implementation(project(":core:network:api"))
     implementation(project(":core:style"))
+    implementation(project(":core:logger"))
 
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)

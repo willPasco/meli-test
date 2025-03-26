@@ -36,6 +36,12 @@ jobs:
           }
           EOF
 
+      - name: Create Google Services json
+        run: |
+          cat <<EOF > ${{ github.workspace }}/app/google-services.json
+          ${{ secrets.GOOGLE_SERVICES_JSON }}
+          EOF
+
       - name: Android Build
         run: ./gradlew assembleDebug
 
