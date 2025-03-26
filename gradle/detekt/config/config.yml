@@ -1,0 +1,28 @@
+build:
+  maxIssues: 300
+
+formatting:
+  active: true
+  android: true
+
+naming:
+  FunctionNaming:
+    ignoreAnnotated: ['Composable']
+  TopLevelPropertyNaming:
+    constantPattern: '[A-Z][_A-Za-z0-9]*'
+
+style:
+  UnusedPrivateMember:
+    active: true
+    ignoreAnnotated: ['Preview*']
+  UnusedPrivateClass:
+    active: true
+    ignoreAnnotated: ['Test', 'IgnoreUnused']
+  ReturnCount:
+    active: true
+    max: 6
+
+complexity:
+  LongMethod:
+    active: true
+    ignoreAnnotated: ['Composable']

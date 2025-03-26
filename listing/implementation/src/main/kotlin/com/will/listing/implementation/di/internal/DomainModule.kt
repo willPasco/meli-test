@@ -4,7 +4,6 @@ import com.will.listing.implementation.domain.manager.PagingManager
 import com.will.listing.implementation.domain.manager.PagingManagerImpl
 import com.will.listing.implementation.domain.mapper.ProductCardMapper
 import com.will.listing.implementation.domain.mapper.ProductCardMapperImpl
-import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 
 internal val domainModule = module {

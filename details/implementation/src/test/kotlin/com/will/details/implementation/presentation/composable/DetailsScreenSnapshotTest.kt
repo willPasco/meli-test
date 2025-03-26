@@ -21,7 +21,8 @@ internal class DetailsScreenSnapshotTest {
         paparazzi.snapshot {
             MeliTestTheme {
                 DetailsScreenWrapper(
-                    itemId = "", viewModel = DetailsViewModel(
+                    itemId = "",
+                    viewModel = DetailsViewModel(
                         fetchProductUseCase = mockk(relaxed = true),
                         navigator = mockk(relaxed = true),
                         initialState = DetailsUiState.ShowProduct(

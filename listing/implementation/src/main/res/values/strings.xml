@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="listing_title_label">Buscar produto</string>
     <string name="listing_not_started_error_title">Que tal achar o que procura?</string>
     <string name="listing_not_started_error_message">Começe pesquisando o que deseja no campo acima!</string>
     <string name="listing_empty_error_title">Procurei mas não achei! );</string>

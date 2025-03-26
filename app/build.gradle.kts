@@ -1,7 +1,9 @@
-    plugins {
+plugins {
     alias(libs.plugins.convention.android.application)
     alias(libs.plugins.convention.compose)
     alias(libs.plugins.kotlin.serialization)
+    id(libs.plugins.google.services.get().pluginId)
+    id(libs.plugins.crashlytics.get().pluginId)
 }
 
 android {
@@ -10,7 +12,7 @@ android {
     defaultConfig {
         applicationId = "com.will.meli"
         versionCode = 1
-        versionName = "1.0"
+        versionName = "0.1"
     }
 
     buildTypes {

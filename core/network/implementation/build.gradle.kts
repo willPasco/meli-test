@@ -17,6 +17,7 @@ android {
 
 dependencies {
     implementation(project(":core:network:api"))
+    implementation(project(":core:logger"))
 
     implementation(libs.koin.android)
     implementation(libs.okhttp)

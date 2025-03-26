@@ -11,6 +11,7 @@ import com.will.details.implementation.domain.exception.ProductDetailsErrorThrow
 import com.will.details.implementation.domain.exception.ProductNetworkErrorThrowable
 import com.will.details.implementation.domain.exception.ProductNotFoundErrorThrowable
 import com.will.details.implementation.domain.model.ProductDetails
+import timber.log.Timber
 
 internal class FetchProductUseCaseImpl(
     private val detailsRepository: DetailsRepository,
@@ -19,16 +20,22 @@ internal class FetchProductUseCaseImpl(
 
     override suspend fun execute(itemId: String): Result<ProductDetails> =
         detailsRepository.getItem(itemId).run {
+            getTimberWithTag().d("Fetched product with id $itemId")
             onSuccess { response ->
                 response.value.body?.let { return@run Result.success(mapper.map(it)) }
             }
-            return@run handleError(this)
+            return@run handleError(this).also {
+                getTimberWithTag().e(it.exceptionOrNull())
+            }
         }
+
+    private fun getTimberWithTag() = Timber.tag("Product details")
 
     private fun handleError(error: NetworkResponse<DetailsResponse>): Result<ProductDetails> {
         error.onClientError {
-            if (it.code == NOT_FOUND_STATUS_CODE)
+            if (it.code == NOT_FOUND_STATUS_CODE) {
                 return@handleError Result.failure(ProductNotFoundErrorThrowable())
+            }
         }
 
         error.onNetworkError {

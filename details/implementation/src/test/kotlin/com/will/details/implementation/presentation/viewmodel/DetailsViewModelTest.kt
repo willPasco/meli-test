@@ -60,7 +60,7 @@ internal class DetailsViewModelTest {
     /*
         WHEN receive the DetailsUiAction.OnBackClicked
         THEN should call mockedNavigator.navigate with DetailsDestination
-    */
+     */
     @Test
     fun validateOnBackClickedUiAction() = testScope.runTest {
         viewModel.onUiAction(DetailsUiAction.OnBackClicked)
@@ -72,7 +72,7 @@ internal class DetailsViewModelTest {
         WHEN receive the DetailsUiAction.FetchProduct
         THEN fire the DetailsUiState.Loading
             AND fire the DetailsUiState.ShowError with ProductDetailsError.NotFoundError
-    */
+     */
     @Test
     fun validateNotFoundError() = testScope.runTest {
         coEvery {
@@ -94,7 +94,7 @@ internal class DetailsViewModelTest {
         WHEN receive the DetailsUiAction.FetchProduct
         THEN fire the DetailsUiState.Loading
             AND fire the DetailsUiState.ShowError with ProductDetailsError.GenericError
-    */
+     */
     @Test
     fun validateGenericError() = testScope.runTest {
         coEvery {
@@ -119,7 +119,7 @@ internal class DetailsViewModelTest {
        WHEN receive the DetailsUiAction.FetchProduct
        THEN fire the DetailsUiState.Loading
            AND fire the DetailsUiState.ShowError with ProductDetailsError.NetworkError
-   */
+     */
     @Test
     fun validateNetworkError() = testScope.runTest {
         coEvery {

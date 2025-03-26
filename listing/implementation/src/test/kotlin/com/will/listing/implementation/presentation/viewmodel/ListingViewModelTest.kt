@@ -5,17 +5,14 @@ import com.will.core.navigation.api.controller.Navigator
 import com.will.details.api.navigation.DetailsDestination
 import com.will.listing.implementation.domain.manager.PagingManager
 import com.will.listing.implementation.domain.model.PagingData
-import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -24,7 +21,7 @@ internal class ListingViewModelTest {
     private val testDispatcher = UnconfinedTestDispatcher()
     private val testScope = TestScope(testDispatcher)
     private val pagingData = PagingData()
-    private val mockedPagingManager = mockk<PagingManager>(relaxed = true){
+    private val mockedPagingManager = mockk<PagingManager>(relaxed = true) {
         every { pagingData } returns this@ListingViewModelTest.pagingData
     }
     private val mockedNavigator = mockk<Navigator>(relaxed = true)

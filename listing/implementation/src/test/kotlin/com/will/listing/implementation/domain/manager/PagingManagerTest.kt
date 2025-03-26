@@ -45,13 +45,14 @@ internal class PagingManagerTest {
             AND the pagingData.itemList should have the items returned by manager.searchTerm
             AND call mockedRepository.searchTerm
             AND call mockedMapper.map
-    */
+     */
     @Test
     fun validateSearchCall() = runTest {
         val expected = listOf(getProductCardWithNulls())
         coEvery { mockedRepository.searchTerm(any(), any()) } returns NetworkResponse.Success(
             SearchResponse(
-                results = listOf(getProductResponseWithNulls()), paging = PagingResponse(
+                results = listOf(getProductResponseWithNulls()),
+                paging = PagingResponse(
                     total = 1,
                     limit = 6
                 )
@@ -84,13 +85,14 @@ internal class PagingManagerTest {
             AND the pagingData.itemList should have all the items returned by all mapper calls
             AND call mockedRepository.searchTerm twice
             AND call mockedMapper.map twice
-    */
+     */
     @Test
     fun validateFetchWithMoreItems() = runTest {
         val expected = listOf(getProductCardWithNulls())
         coEvery { mockedRepository.searchTerm(any(), any()) } returns NetworkResponse.Success(
             SearchResponse(
-                results = listOf(getProductResponseWithNulls()), paging = PagingResponse(
+                results = listOf(getProductResponseWithNulls()),
+                paging = PagingResponse(
                     total = 10,
                     limit = 6
                 )
@@ -115,7 +117,6 @@ internal class PagingManagerTest {
             assertEquals(PagingState.Idle, awaitItem())
             assertProductCardList(result = pagingData.itemList, expected = expected + expected)
         }
-
     }
 
     /*
@@ -126,13 +127,14 @@ internal class PagingManagerTest {
             AND the pagingData.itemList should have all the items returned by first mapper call
             AND call mockedRepository.searchTerm once
             AND call mockedMapper.map once
-    */
+     */
     @Test
     fun validateFetchWithTotalItemsReached() = runTest {
         val expected = listOf(getProductCardWithNulls())
         coEvery { mockedRepository.searchTerm(any(), any()) } returns NetworkResponse.Success(
             SearchResponse(
-                results = listOf(getProductResponseWithNulls()), paging = PagingResponse(
+                results = listOf(getProductResponseWithNulls()),
+                paging = PagingResponse(
                     total = 1,
                     limit = 6
                 )
@@ -164,7 +166,7 @@ internal class PagingManagerTest {
             AND should fire the PagingState.Empty state
             AND call mockedRepository.searchTerm
             AND not call mockedMapper.map
-    */
+     */
     @Test
     fun validateEmptyState() = runTest {
         coEvery { mockedRepository.searchTerm(any(), any()) } returns NetworkResponse.Success(
@@ -194,7 +196,7 @@ internal class PagingManagerTest {
             AND should fire the PagingState.Error state with PagingError.NetworkError
             AND call mockedRepository.searchTerm
             AND not call mockedMapper.map
-    */
+     */
     @Test
     fun validateNetworkErrorState() = runTest {
         coEvery {
@@ -225,7 +227,7 @@ internal class PagingManagerTest {
             AND should fire the PagingState.Error state with PagingError.GenericError
             AND call mockedRepository.searchTerm
             AND not call mockedMapper.map
-    */
+     */
     @Test
     fun validateGenericErrorState() = runTest {
         coEvery {
@@ -254,13 +256,14 @@ internal class PagingManagerTest {
         THEN AND should fire the PagingState.PaginationError state with PagingError.GenericError
             AND call mockedRepository.searchTerm twice
             AND not call mockedMapper.map once
-    */
+     */
     @Test
     fun validatePaginationErrorState() = runTest {
         pagingData.pagingState.test {
             coEvery { mockedRepository.searchTerm(any(), any()) } returns NetworkResponse.Success(
                 SearchResponse(
-                    results = listOf(getProductResponseWithNulls()), paging = PagingResponse(
+                    results = listOf(getProductResponseWithNulls()),
+                    paging = PagingResponse(
                         total = 10,
                         limit = 6
                     )
@@ -291,12 +294,13 @@ internal class PagingManagerTest {
         WHEN call manager.reset
         THEN AND should fire the PagingState.NotStarted
             AND pagingData.itemList should be empty
-    */
+     */
     @Test
     fun validateResetCall() = runTest {
         coEvery { mockedRepository.searchTerm(any(), any()) } returns NetworkResponse.Success(
             SearchResponse(
-                results = listOf(getProductResponseWithNulls()), paging = PagingResponse(
+                results = listOf(getProductResponseWithNulls()),
+                paging = PagingResponse(
                     total = 10,
                     limit = 6
                 )

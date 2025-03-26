@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 internal class PagingData(initialState: PagingState = PagingState.NotStarted()) {
 
-    private val _pagingState = MutableStateFlow<PagingState>(initialState)
+    private val _pagingState = MutableStateFlow(initialState)
     val pagingState: StateFlow<PagingState> = _pagingState
 
     private val _itemList: MutableList<ProductCard> = mutableListOf()
