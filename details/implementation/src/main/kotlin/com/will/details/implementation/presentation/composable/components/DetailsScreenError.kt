@@ -25,7 +25,9 @@ import com.will.details.implementation.presentation.viewmodel.DetailsUiActionInv
 @Composable
 internal fun DetailsScreenError(error: ProductDetailsError, onUiAction: DetailsUiActionInvoke) {
     Scaffold(
-        modifier = Modifier.fillMaxSize().testTag("details-error"),
+        modifier = Modifier
+            .fillMaxSize()
+            .testTag("details-error"),
         topBar = {
             Header(title = stringResource(R.string.product_details_title_label)) {
                 onUiAction(DetailsUiAction.OnBackClicked)
@@ -39,7 +41,11 @@ internal fun DetailsScreenError(error: ProductDetailsError, onUiAction: DetailsU
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = stringResource(error.messageResId), textAlign = TextAlign.Center)
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = stringResource(error.messageResId),
+                textAlign = TextAlign.Center
+            )
 
             error.buttonLabelResId?.let {
                 PrimaryButton(
