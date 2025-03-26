@@ -1,6 +1,6 @@
 ## Setup
 
-Para que o projeto funcione é necessário realizar dois procedimentos:
+Para que o projeto funcione localmente, é necessário realizar dois procedimentos:
 
 #### Criação do NetworkSecurity
 
@@ -28,9 +28,13 @@ jstring Java_com_will_core_network_implementation_security_NetworkSecurityImpl_g
 ```
 #### Criação do Google Services
 
-Este projeto utiliza o `Crashlytics` do firebase para envios de logs, com isso é necessário realizar a criação do `google-services.json` dentro do path `/app`. Então se faz necessário que você realiza o setup de um projeto no firebase para executar o projeto localmente. [Consulte este guia do próprio firebase](https://firebase.google.com/docs/android/setup?hl=pt-br#register-app).
+Este projeto utiliza o `Crashlytics` do firebase para envios de logs, com isso é necessário realizar a criação do `google-services.json` dentro do path `/app`. Então se faz necessário que você realize o setup de um projeto no firebase para executar o projeto localmente. [Consulte este guia do próprio firebase](https://firebase.google.com/docs/android/setup?hl=pt-br#register-app).
+
+## Access token
+
+O access token utilizado dentro do `NetworkSecurity.cpp` pode ser obtido através da implementação de autenticação nas apis de desenvolvedor do Meli, esse projeto tem como base a utilização das apis deles. Para mais informações consulte diretamente a [doc do Meli](https://developers.mercadolivre.com.br/pt_br/crie-uma-aplicacao-no-mercado-livre).
 
 ## Versão disponível para testes
 
-Na aba de releases do próprio git já contém uma versão dispónivel para testes com o código mais recente da main. É uma aplicação em modo debug, então é possível visualizar os logs e depurar caso sinta a necessidade.
+Na aba de releases do próprio git já contém uma versão disponível para testes com o código mais recente da main. É uma aplicação em modo debug, então é possível visualizar os logs e depurar caso sinta a necessidade.
 
