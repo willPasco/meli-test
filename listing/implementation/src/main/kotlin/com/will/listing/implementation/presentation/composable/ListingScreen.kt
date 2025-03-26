@@ -14,7 +14,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -57,12 +56,11 @@ private fun PagingListingScreen(
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
             val lazyListState = rememberLazyListState()
-            val sholdShowShadow = remember { mutableStateOf(pagingData.itemList.isNotEmpty()) }
 
             val shouldStartPaginating by remember {
                 derivedStateOf {
                     (lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: -1) ==
-                        lazyListState.layoutInfo.totalItemsCount.dec()
+                            lazyListState.layoutInfo.totalItemsCount.dec()
                 }
             }
 

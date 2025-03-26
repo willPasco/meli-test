@@ -62,8 +62,8 @@ internal class PagingManagerImpl(
     }
 
     private fun isAllowedToPaginating() =
-        (pagingData.pagingState.value !is PagingState.Paginating ||
-                pagingData.pagingState.value !is PagingState.Loading) &&
+        pagingData.pagingState.value !is PagingState.Paginating &&
+                pagingData.pagingState.value !is PagingState.Loading &&
                 pagingData.itemList.isNotEmpty()
 
     /**
