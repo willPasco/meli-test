@@ -50,8 +50,8 @@ internal class ListingScreenSnapshotTest {
             MeliTestTheme {
                 ListingScreenWrapper(
                     viewModel = ListingViewModel(
-                        pagingManager = mockk(),
-                        navigator = mockk(),
+                        pagingManager = mockk(relaxed = true),
+                        navigator = mockk(relaxed = true),
                         initialState = ListingUiState.Initialize(pagingData = pagingData)
                     )
                 )

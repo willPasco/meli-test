@@ -8,5 +8,5 @@ internal sealed interface PagingState {
     data class NotStarted(val error: PagingError = PagingError.NotStarted) : PagingState
     data class Empty(val error: PagingError = PagingError.EmptyList) : PagingState
     data class PaginationError(val error: PagingError) : PagingState
-    data class Error(val error: PagingError) : PagingState
+    data class Error(val error: PagingError, val actualTerm: String) : PagingState
 }

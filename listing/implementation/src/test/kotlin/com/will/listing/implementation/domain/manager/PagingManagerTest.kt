@@ -212,7 +212,10 @@ internal class PagingManagerTest {
 
             coVerify(exactly = 0) { mockedMapper.map(any()) }
 
-            assertEquals(PagingState.Error(PagingError.NetworkError), awaitItem())
+            assertEquals(
+                PagingState.Error(PagingError.NetworkError, actualTerm = "term"),
+                awaitItem()
+            )
         }
     }
 
@@ -240,7 +243,10 @@ internal class PagingManagerTest {
 
             coVerify(exactly = 0) { mockedMapper.map(any()) }
 
-            assertEquals(PagingState.Error(PagingError.GenericError), awaitItem())
+            assertEquals(
+                PagingState.Error(PagingError.GenericError, actualTerm = "term"),
+                awaitItem()
+            )
         }
     }
 
