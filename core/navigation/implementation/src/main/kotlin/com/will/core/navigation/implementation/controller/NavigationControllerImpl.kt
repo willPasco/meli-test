@@ -17,10 +17,23 @@ import com.will.core.navigation.implementation.model.PopBack
 import com.will.core.navigation.implementation.throwable.UnknownNavigationIntentThrowable
 import timber.log.Timber
 
+/**
+ * This class is responsible for managing the navigation flow in the app by responding
+ * to navigation intents and performing navigation actions using a `NavHostController`.
+ *
+ * @param navigator The `Navigator` used to get navigation intents and perform navigation actions.
+ */
 internal class NavigationControllerImpl(
     private val navigator: Navigator
 ) : NavigationController {
 
+    /**
+     * This Composable function sets up navigation by observing the current navigation state and performing
+     * navigation actions when needed. It reacts to any Navigation Intents type.
+     * To make it work, must be called inside a NavHost
+     *
+     * @param navHostController The `NavHostController` used to manage navigation within the app.
+     */
     @Composable
     override fun Setup(navHostController: NavHostController) {
         val lifeCycleOwner = LocalLifecycleOwner.current
