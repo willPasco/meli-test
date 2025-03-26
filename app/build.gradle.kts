@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId = "com.will.meli"
         versionCode = 1
-        versionName = "0.3"
+        versionName = "0.4"
     }
 
     buildFeatures {
