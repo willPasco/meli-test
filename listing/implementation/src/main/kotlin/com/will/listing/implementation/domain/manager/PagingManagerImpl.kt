@@ -14,6 +14,17 @@ import com.will.listing.implementation.domain.model.PagingState
 import com.will.listing.implementation.domain.throwable.ProductListingThrowable
 import timber.log.Timber
 
+/**
+ * This class manages the paging logic for fetching product listings based on search terms.
+ * It handles fetching, paginating, and managing different paging states.
+ *
+ * All states can be consumed by the PagingData, the manager will emit states through it
+ * during the processing of each step of a product fetch.
+ *
+ * @param repository The repository responsible for fetching data.
+ * @param mapper The mapper to map raw product data into domain models.
+ * @param pagingData A data object responsible for holding the current paging state and items.
+ */
 internal class PagingManagerImpl(
     private val repository: ListingRepository,
     private val mapper: ProductCardMapper,
@@ -23,6 +34,12 @@ internal class PagingManagerImpl(
     private var term: String = ""
     private var currentOffset: Int? = null
 
+    /**
+     * Starts a new search with the given search term. Resets the paging data and fetches the first
+     * set of product results.
+     *
+     * @param term The search term to use for filtering product listings.
+     */
     override suspend fun searchTerm(term: String) {
         this.term = term
         currentOffset = 0
@@ -31,6 +48,10 @@ internal class PagingManagerImpl(
         fetchProductCard(term)
     }
 
+    /**
+     * Fetches the next set of products if pagination is allowed. Checks whether the system is
+     * already in the loading or paginating state to avoid concurrent requests.
+     */
     override suspend fun fetch() {
         currentOffset?.let {
             if (isAllowedToPaginating()) {
@@ -45,6 +66,9 @@ internal class PagingManagerImpl(
                 pagingData.pagingState.value !is PagingState.Loading) &&
                 pagingData.itemList.isNotEmpty()
 
+    /**
+     * Resets the paging data and offsets, effectively starting the paging process from scratch.
+     */
     override suspend fun reset() {
         currentOffset = null
         pagingData.clear()
@@ -75,6 +99,12 @@ internal class PagingManagerImpl(
         } ?: pagingData.emitState(PagingState.Error(error))
     }
 
+    /**
+     * Handles a successful response from the product listing search. It processes the response data
+     * and updates the paging state accordingly. If the response contains no results, an empty state is emitted.
+     *
+     * @param response The successful network response containing the product listings.
+     */
     private suspend fun handleSuccess(response: NetworkResponse.Success<SearchResponse>) {
         val paging = response.value.paging
 
@@ -89,11 +119,26 @@ internal class PagingManagerImpl(
         pagingData.emitState(PagingState.Idle)
     }
 
+    /**
+     * Prepares the next offset key for pagination based on the current offset and paging response.
+     * This ensures that the system knows where to start fetching the next batch of results.
+     *
+     * @param paging The paging information that contains the total count and limit.
+     */
     private fun prepareNextKey(paging: PagingResponse?) {
         val nextOffSet = currentOffset?.plus((paging?.limit ?: 0))
         currentOffset = nextOffSet?.let { getNextKey(nextOffset = it, paging = paging) }
     }
 
+
+    /**
+     * Determines the next key (offset) for fetching more results. The next key is valid only if it is
+     * smaller than the total number of items available.
+     *
+     * @param nextOffset The calculated next offset based on the current offset and paging limit.
+     * @param paging The paging information that contains the total count of items.
+     * @return The next valid offset for pagination, or null if no more data is available.
+     */
     private fun getNextKey(
         nextOffset: Int,
         paging: PagingResponse?,

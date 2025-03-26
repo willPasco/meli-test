@@ -11,6 +11,14 @@ import retrofit2.Response
 import timber.log.Timber
 import java.lang.reflect.Type
 
+/**
+ * Adapter class that wraps around a Retrofit `Call` and transforms its response into a `NetworkResponse`.
+ * This class handles both success and error scenarios by wrapping the Retrofit response into a consistent
+ * model of `NetworkResponse`.
+ *
+ * @param call The original Retrofit `Call` instance.
+ * @param responseType The expected type of the response body.
+ */
 internal class NetworkResponseCall<R>(
     private val call: Call<R>,
     private val responseType: Type,
@@ -42,6 +50,17 @@ internal class NetworkResponseCall<R>(
         }
     )
 
+
+    /**
+     * Converts a Retrofit `Response` into a `NetworkResponse` model.
+     * If the response is successful, it wraps the body into a `NetworkResponse.Success`.
+     * Otherwise, it maps the error code and body to a `NetworkResponse.Error`.
+     *
+     * NOTE: If you are expecting a null body response, specified Unit
+     * as generic type of NetoworkResponse
+     *
+     * @return A `NetworkResponse<R>`, which can either be a success or an error.
+     */
     @Suppress("UNCHECKED_CAST")
     private fun <R> Response<R>.toNetworkResponse(): NetworkResponse<R> {
         if (!isSuccessful) {
