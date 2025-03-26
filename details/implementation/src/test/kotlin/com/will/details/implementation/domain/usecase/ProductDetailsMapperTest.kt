@@ -63,7 +63,7 @@ internal class ProductDetailsMapperTest {
                 AttributesResponse(valueId = null, name = null, valueName = null),
                 AttributesResponse(valueId = null, name = "name", valueName = "value"),
                 AttributesResponse(valueId = null, name = "name", valueName = "value"),
-                AttributesResponse(valueId = 2230284, name = "name", valueName = "value"),
+                AttributesResponse(valueId = "2230284", name = "name", valueName = "value"),
             )
         )
 

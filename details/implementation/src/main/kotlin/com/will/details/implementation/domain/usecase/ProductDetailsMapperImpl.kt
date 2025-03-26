@@ -7,7 +7,7 @@ import com.will.details.implementation.data.model.PicturesResponse
 import com.will.details.implementation.domain.model.ProductDetails
 import java.util.Locale
 
-private const val NEW_CONDITION_ID = 2230284
+private const val NEW_CONDITION_ID = "2230284"
 
 internal class ProductDetailsMapperImpl : ProductDetailsMapper {
 
