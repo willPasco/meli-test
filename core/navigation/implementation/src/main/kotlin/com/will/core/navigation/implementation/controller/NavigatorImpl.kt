@@ -11,6 +11,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
+/**
+ * This class manages navigation intents by sending them to a `Channel`
+ * this channel is consumed by the NavigationController.
+ *
+ * An instance of this class is provided as a singleton by Koin injections, this allow
+ * to be used in any place of the app without inconsistency between the modules.
+ *
+ * @param coroutineScope The coroutine scope used to launch navigation actions, defaulted to `Dispatchers.IO`.
+ */
 internal class NavigatorImpl(
     private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.IO)
 ) : Navigator {

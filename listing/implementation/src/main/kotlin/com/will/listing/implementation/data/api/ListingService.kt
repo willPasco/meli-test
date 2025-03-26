@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 internal interface ListingService {
 
-    @GET("sites/MLB/search")
+    @GET("sites/MLB/searach")
     suspend fun searchTerm(
         @Query("q") term: String,
         @Query("offset") offset: Int,

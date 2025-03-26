@@ -18,11 +18,13 @@ import com.will.core.style.components.PrimaryButton
 import com.will.core.style.theme.MeliTestTheme
 import com.will.listing.implementation.domain.model.PagingError
 
+internal typealias RetryAction = () -> Unit
+
 @Composable
 internal fun ListingErrorComponent(
     modifier: Modifier = Modifier,
     error: PagingError,
-    onRetryClicked: () -> Unit,
+    onRetryClicked: RetryAction,
 ) {
     Column(
         modifier = modifier

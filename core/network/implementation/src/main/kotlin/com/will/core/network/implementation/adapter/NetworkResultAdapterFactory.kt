@@ -1,9 +1,9 @@
 package com.will.core.network.implementation.adapter
 
-import android.util.Log
 import com.will.core.network.api.model.NetworkResponse
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
+import timber.log.Timber
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
@@ -32,6 +32,6 @@ internal class NetworkResultAdapterFactory : CallAdapter.Factory() {
 
         NetworkResponseAdapter(bodyType)
     }.onFailure {
-        Log.e(NetworkResultAdapterFactory::class.simpleName, it.message.orEmpty())
+        Timber.e(it)
     }.getOrNull()
 }
