@@ -45,8 +45,9 @@ internal class NetworkResponseCall<R>(
     @Suppress("UNCHECKED_CAST")
     private fun <R> Response<R>.toNetworkResponse(): NetworkResponse<R> {
         if (!isSuccessful) {
-            Timber.e("Request was not successful: ${errorBody().toString()}")
-            return getErrorByCode(code = code(), body = errorBody().toString())
+            val errorBody = errorBody().toString()
+            Timber.e("Request was not successful: ${errorBody}")
+            return getErrorByCode(code = code(), body = errorBody)
         }
 
         return body().let { body ->
