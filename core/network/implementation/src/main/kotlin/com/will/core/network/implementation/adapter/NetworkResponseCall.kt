@@ -74,7 +74,11 @@ internal class NetworkResponseCall<R>(
                 NetworkResponse.Success(body)
             } else {
                 Timber.d("Converting the response expected type to Unit because the body is null")
-                NetworkResponse.Success(Unit) as NetworkResponse<R>
+                NetworkResponse.Success(Unit) as? NetworkResponse<R>
+                    ?: NetworkResponse.Error.UnknownError(
+                        code(),
+                        "Can't not be casted to Unit but has an empty json"
+                    )
             }
         }
     }
